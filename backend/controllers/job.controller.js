@@ -13,6 +13,7 @@ export const postJob = async (req, res) => {
       position,
       companyId,
     } = req.body;
+    const userId = req.id;
 
     if (
       !title ||
@@ -30,13 +31,19 @@ export const postJob = async (req, res) => {
     const job = await Job.create({
       title,
       description,
-      requirements,
-      salary,
+      requirements: requirements.split(","),
+      salary: Number(salary),
       location,
       jobType,
-      experience,
+      experience: experience,
       position,
-      companyId,
+      companyId: companyId,
+      created_by: userId,
+    });
+    return res.status(200).json({
+      message: "Job created successfully!",
+      job,
+      success: true,
     });
   } catch (error) {
     console.log(error);
