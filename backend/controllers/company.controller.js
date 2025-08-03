@@ -44,6 +44,10 @@ export const getCompany = async (req, res) => {
         success: false,
       });
     }
+    return res.status(200).json({
+      companies,
+      success: true,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -87,8 +91,8 @@ export const updateCompany = async (req, res) => {
 
     return res.status(200).json({
       message: "Company informatiion is updated",
-      success: "true"
-    })
+      success: "true",
+    });
   } catch (error) {
     console.log(error);
   }
