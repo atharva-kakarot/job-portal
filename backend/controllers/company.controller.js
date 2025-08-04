@@ -90,7 +90,7 @@ export const updateCompany = async (req, res) => {
     }
 
     return res.status(200).json({
-      message: "Company informatiion is updated",
+      message: "Company information is updated",
       success: "true",
     });
   } catch (error) {
