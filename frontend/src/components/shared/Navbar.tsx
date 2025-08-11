@@ -6,6 +6,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { User2, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const user = false;
@@ -23,10 +24,14 @@ const Navbar = () => {
           </ul>
           {!user ? (
             <div className=" flex items-center gap-2">
-              <Button variant="outline">Login</Button>
-              <Button className="bg-[#6a38c2] hover:bg-[#5b30a6]">
-                Signup
-              </Button>
+              <Link to="/login">
+                <Button variant="outline">Login</Button>
+              </Link>
+              <Link to="/signup">
+                <Button className="bg-[#6a38c2] hover:bg-[#5b30a6]">
+                  Signup
+                </Button>
+              </Link>
             </div>
           ) : (
             <Popover>

@@ -1,5 +1,11 @@
+import Navbar from "../shared/Navbar";
+
 const Signup = () => {
-  return <div>Signup</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 };
 
 export default Signup;
