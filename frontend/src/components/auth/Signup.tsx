@@ -4,20 +4,42 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup } from "@/components/ui/radio-group";
+import { useState } from "react";
 
 const Signup = () => {
+  const [input, setInput] = useState({
+    fullname: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    role: "",
+    file: "",
+  });
+
+  const changeEventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const changeFileHandler = (e) => {
+    setInput({ ...input, file: e.target.files?.[0] });
+  };
   return (
     <div>
       <Navbar />
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <form
           action=""
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-"
+          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
         >
           <h1 className="font-bold text-xl mb-5">Sign Up</h1>
           <div className="my-2">
             <label>Full name</label>
-            <Input type="text" placeholder="Enter your full name" />
+            <Input
+              type="text"
+              placeholder="Enter your full name"
+              value={input.fullname}
+              name="fullname"
+            />
           </div>
           <div className="my-2">
             <label>Email</label>
@@ -61,7 +83,7 @@ const Signup = () => {
             Signup
           </Button>
           <span className="text-sm">
-            Already have an account?
+            Already have an account?{" "}
             <Link to="/login" className="text-blue-600">
               Login
             </Link>
