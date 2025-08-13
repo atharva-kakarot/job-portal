@@ -4,24 +4,58 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup } from "@/components/ui/radio-group";
+import { useState, type ChangeEvent, type FormEvent } from "react";
+
+interface LoginInput {
+  email: string;
+  password: string;
+  role: string;
+}
 
 const Login = () => {
+  const [input, setInput] = useState<LoginInput>({
+    email: "",
+    password: "",
+    role: "",
+  });
+
+  const changeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(input);
+  };
+
   return (
     <div>
       <Navbar />
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <form
-          action=""
+          onSubmit={submitHandler}
           className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
         >
-          <h1 className="font-bold text-xl mb-5">Sign Up</h1>
+          <h1 className="font-bold text-xl mb-5">Login</h1>
           <div className="my-2">
             <label>Email</label>
-            <Input type="text" placeholder="Enter your email" />
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              value={input.email}
+              name="email"
+              onChange={changeEventHandler}
+            />
           </div>
           <div className="my-2">
             <label>Password</label>
-            <Input type="text" placeholder="Enter your password" />
+            <Input
+              type="text"
+              placeholder="Enter your password"
+              value={input.password}
+              name="password"
+              onChange={changeEventHandler}
+            />
           </div>
           <div className="flex items-center justify-between">
             <RadioGroup className="flex items-center gap-4 my-5">
@@ -31,6 +65,8 @@ const Login = () => {
                   name="role"
                   value="student"
                   className="cursor-pointer"
+                  checked={input.role === "student"}
+                  onChange={changeEventHandler}
                 />
                 <Label htmlFor="r1">Student</Label>
               </div>
@@ -40,16 +76,18 @@ const Login = () => {
                   name="role"
                   value="recruiter"
                   className="cursor-pointer"
+                  checked={input.role === "recruiter"}
+                  onChange={changeEventHandler}
                 />
                 <Label htmlFor="r2">Recruiter</Label>
               </div>
             </RadioGroup>
-            <div className="flex items-center gap-2">
-              <Label>Profile</Label>
-              <Input type="file" accept="image/*" className="cursor-pointer" />
-            </div>
           </div>
-          <Button type="submit" className="w-full my-4">
+          <Button
+            type="submit"
+            className="w-full my-4 cursor-pointer
+          "
+          >
             Login
           </Button>
           <span className="text-sm">

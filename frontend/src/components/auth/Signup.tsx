@@ -1,34 +1,73 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup } from "@/components/ui/radio-group";
-import { useState } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import axios from "axios";
+import { USER_API_ENDPOINT } from "@/utils/constant";
+import { toast } from "sonner";
 
-const Signup = () => {
-  const [input, setInput] = useState({
+interface SignupInput {
+  fullname: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  role: string;
+  file: File | null;
+}
+
+const Signup: React.FC = () => {
+  const [input, setInput] = useState<SignupInput>({
     fullname: "",
     email: "",
     phoneNumber: "",
     password: "",
     role: "",
-    file: "",
+    file: null,
   });
 
-  const changeEventHandler = (e) => {
+  const changeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const changeFileHandler = (e) => {
-    setInput({ ...input, file: e.target.files?.[0] });
+  const changeFileHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setInput({ ...input, file: e.target.files?.[0] || null });
   };
+
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("fullname", input.fullname);
+    formData.append("email", input.email);
+    formData.append("phoneNumber", input.phoneNumber);
+    formData.append("password", input.password);
+    formData.append("role", input.role);
+    if (input.file) {
+      formData.append("file", input.file);
+    }
+    try {
+      const navigate = useNavigate();
+      const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        navigate("/login");
+        toast.success(res.data.message);
+      }
+    } catch (error) {}
+  };
+
   return (
     <div>
       <Navbar />
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <form
-          action=""
+          onSubmit={submitHandler}
           className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
         >
           <h1 className="font-bold text-xl mb-5">Sign Up</h1>
@@ -39,19 +78,38 @@ const Signup = () => {
               placeholder="Enter your full name"
               value={input.fullname}
               name="fullname"
+              onChange={changeEventHandler}
             />
           </div>
           <div className="my-2">
             <label>Email</label>
-            <Input type="text" placeholder="Enter your email" />
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              value={input.email}
+              name="email"
+              onChange={changeEventHandler}
+            />
           </div>
           <div className="my-2">
             <label>Phone number</label>
-            <Input type="text" placeholder="Enter your phone number" />
+            <Input
+              type="tel"
+              placeholder="Enter your phone number"
+              value={input.phoneNumber}
+              name="phoneNumber"
+              onChange={changeEventHandler}
+            />
           </div>
           <div className="my-2">
             <label>Password</label>
-            <Input type="text" placeholder="Enter your password" />
+            <Input
+              type="password"
+              placeholder="Enter your password"
+              value={input.password}
+              name="password"
+              onChange={changeEventHandler}
+            />
           </div>
           <div className="flex items-center justify-between">
             <RadioGroup className="flex items-center gap-4 my-5">
@@ -61,6 +119,8 @@ const Signup = () => {
                   name="role"
                   value="student"
                   className="cursor-pointer"
+                  checked={input.role === "student"}
+                  onChange={changeEventHandler}
                 />
                 <Label htmlFor="r1">Student</Label>
               </div>
@@ -70,16 +130,24 @@ const Signup = () => {
                   name="role"
                   value="recruiter"
                   className="cursor-pointer"
+                  checked={input.role === "recruiter"}
+                  onChange={changeEventHandler}
                 />
                 <Label htmlFor="r2">Recruiter</Label>
               </div>
             </RadioGroup>
             <div className="flex items-center gap-2">
               <Label>Profile</Label>
-              <Input type="file" accept="image/*" className="cursor-pointer" />
+              <Input
+                type="file"
+                accept="image/*"
+                className="cursor-pointer"
+                name="file"
+                onChange={changeFileHandler}
+              />
             </div>
           </div>
-          <Button type="submit" className="w-full my-4">
+          <Button type="submit" className="w-full my-4 cursor-pointer">
             Signup
           </Button>
           <span className="text-sm">
