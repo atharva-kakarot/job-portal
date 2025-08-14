@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import axios, { AxiosError, AxiosHeaders } from "axios";
+import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
 
@@ -39,7 +39,6 @@ const Signup: React.FC = () => {
   };
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
-    console.log(input);
     e.preventDefault();
     const formData = new FormData();
     formData.append("fullname", input.fullname);

@@ -26,26 +26,25 @@ const Login = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
+  const navigate = useNavigate();
+
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("email", input.email);
-    formData.append("password", input.password);
-    formData.append("role", input.role);
     try {
-      const navigate = useNavigate();
-      const res = await axios.post(`${USER_API_ENDPOINT}/login`, formData, {
+      const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
         headers: {
           "Content-Type": "application/json",
         },
         withCredentials: true,
       });
       if (res.data.success) {
-        navigate("/login");
         toast.success(res.data.message);
+        navigate("/");
       }
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        toast.success(error.response?.data?.message);
+      }
     }
   };
 
