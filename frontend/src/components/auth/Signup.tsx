@@ -5,7 +5,7 @@ import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import axios from "axios";
+import axios, { AxiosError, AxiosHeaders } from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
 
@@ -19,6 +19,8 @@ interface SignupInput {
 }
 
 const Signup: React.FC = () => {
+  const navigate = useNavigate();
+
   const [input, setInput] = useState<SignupInput>({
     fullname: "",
     email: "",
@@ -37,6 +39,7 @@ const Signup: React.FC = () => {
   };
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    console.log(input);
     e.preventDefault();
     const formData = new FormData();
     formData.append("fullname", input.fullname);
@@ -47,19 +50,22 @@ const Signup: React.FC = () => {
     if (input.file) {
       formData.append("file", input.file);
     }
+
     try {
-      const navigate = useNavigate();
       const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
+
       if (res.data.success) {
-        navigate("/login");
         toast.success(res.data.message);
+        navigate("/login");
       }
-    } catch (error) {}
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.success(error.response?.data?.message);
+      }
+    }
   };
 
   return (
@@ -71,6 +77,7 @@ const Signup: React.FC = () => {
           className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
         >
           <h1 className="font-bold text-xl mb-5">Sign Up</h1>
+
           <div className="my-2">
             <label>Full name</label>
             <Input
@@ -81,6 +88,7 @@ const Signup: React.FC = () => {
               onChange={changeEventHandler}
             />
           </div>
+
           <div className="my-2">
             <label>Email</label>
             <Input
@@ -91,6 +99,7 @@ const Signup: React.FC = () => {
               onChange={changeEventHandler}
             />
           </div>
+
           <div className="my-2">
             <label>Phone number</label>
             <Input
@@ -101,6 +110,7 @@ const Signup: React.FC = () => {
               onChange={changeEventHandler}
             />
           </div>
+
           <div className="my-2">
             <label>Password</label>
             <Input
@@ -111,10 +121,12 @@ const Signup: React.FC = () => {
               onChange={changeEventHandler}
             />
           </div>
+
           <div className="flex items-center justify-between">
             <RadioGroup className="flex items-center gap-4 my-5">
               <div className="flex items-center space-x-2">
                 <Input
+                  id="r1"
                   type="radio"
                   name="role"
                   value="student"
@@ -124,8 +136,10 @@ const Signup: React.FC = () => {
                 />
                 <Label htmlFor="r1">Student</Label>
               </div>
+
               <div className="flex items-center space-x-2">
                 <Input
+                  id="r2"
                   type="radio"
                   name="role"
                   value="recruiter"
@@ -136,6 +150,7 @@ const Signup: React.FC = () => {
                 <Label htmlFor="r2">Recruiter</Label>
               </div>
             </RadioGroup>
+
             <div className="flex items-center gap-2">
               <Label>Profile</Label>
               <Input
@@ -147,6 +162,7 @@ const Signup: React.FC = () => {
               />
             </div>
           </div>
+
           <Button type="submit" className="w-full my-4 cursor-pointer">
             Signup
           </Button>

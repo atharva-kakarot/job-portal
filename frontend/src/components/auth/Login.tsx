@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import axios from "axios";
+import { USER_API_ENDPOINT } from "@/utils/constant";
+import { toast } from "sonner";
 
 interface LoginInput {
   email: string;
@@ -25,7 +28,25 @@ const Login = () => {
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(input);
+    const formData = new FormData();
+    formData.append("email", input.email);
+    formData.append("password", input.password);
+    formData.append("role", input.role);
+    try {
+      const navigate = useNavigate();
+      const res = await axios.post(`${USER_API_ENDPOINT}/login`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        navigate("/login");
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
