@@ -8,6 +8,10 @@ import { useState, type ChangeEvent, type FormEvent } from "react";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
+import type { RootState } from "@/redux/store";
+import { Loader2 } from "lucide-react";
 
 interface LoginInput {
   email: string;
@@ -26,11 +30,14 @@ const Login = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
+  const { loading } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
         headers: {
           "Content-Type": "application/json",
@@ -45,6 +52,8 @@ const Login = () => {
       if (axios.isAxiosError(error)) {
         toast.success(error.response?.data?.message);
       }
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -103,13 +112,20 @@ const Login = () => {
               </div>
             </RadioGroup>
           </div>
-          <Button
-            type="submit"
-            className="w-full my-4 cursor-pointer
+          {loading ? (
+            <Button className="w-full my-4">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              className="w-full my-4 cursor-pointer
           "
-          >
-            Login
-          </Button>
+            >
+              Login
+            </Button>
+          )}
           <span className="text-sm">
             Dont have an account?{" "}
             <Link to="/signup" className="text-blue-600">
