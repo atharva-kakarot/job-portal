@@ -1,0 +1,82 @@
+import { Avatar } from "@radix-ui/react-avatar";
+import Navbar from "./shared/Navbar";
+import { AvatarImage } from "./ui/avatar";
+import { Contact, Mail, Pen } from "lucide-react";
+import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
+import { Label } from "./ui/label";
+import AppliedJobTable from "./AppliedJobTable";
+
+const skills = ["HTML", "CSS", "JavaScript", "ReactJS"];
+const isResume = true;
+
+const Profile = () => {
+  return (
+    <div>
+      <Navbar />
+      <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8">
+        <div className="flex justify-between">
+          <div className="flex items-center gap-4">
+            <Avatar className="w-24">
+              <AvatarImage
+                className="w-24"
+                src="https://cdn.pixabay.com/photo/2017/02/15/00/48/logo-2067396_1280.png"
+                alt="profile"
+              />
+            </Avatar>
+            <div>
+              <h1 className="font-medium text-xl">Full Name</h1>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+            </div>
+          </div>
+          <Button className="text-right" variant="outline">
+            <Pen />
+          </Button>
+        </div>
+        <div className="my-5">
+          <div className="flex item-center gap-3 my-2">
+            <Mail />
+            <span>atharva@gmail.com</span>
+          </div>
+          <div className="flex item-center gap-3 my-2">
+            <Contact />
+            <span>900000001</span>
+          </div>
+        </div>
+        <div className="my-5">
+          <h1>Skills</h1>
+          <div className="flex items-center gap-1">
+            {skills.length >= 0 ? (
+              skills.map((item, index) => <Badge key={index}>{item}</Badge>)
+            ) : (
+              <span>NA</span>
+            )}
+          </div>
+        </div>
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label className="text-md font-bold ">Resume</Label>
+          {isResume ? (
+            <a
+              target="blank"
+              href="https://github.com/atharva-kakarot"
+              className="text-blue-500 w-full hover:underline"
+            >
+              Atharva Karanjekar
+            </a>
+          ) : (
+            <span>NA</span>
+          )}
+        </div>
+      </div>
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+        <h1>Applied Jobs</h1>
+        <AppliedJobTable />
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
