@@ -44,6 +44,9 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
     file: user.profile?.resume || null,
   });
 
+  const changeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
   return (
     <div>
       <Dialog open={open}>
@@ -65,6 +68,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   name="name"
                   className="col-span-3"
                   value={input.fullname}
+                  onChange={changeEventHandler}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -76,6 +80,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   name="email"
                   className="col-span-3"
                   value={input.email}
+                  onChange={changeEventHandler}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -87,6 +92,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   name="number"
                   className="col-span-3"
                   value={input.phoneNumber}
+                  onChange={changeEventHandler}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -98,6 +104,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   name="bio"
                   className="col-span-3"
                   value={input.bio}
+                  onChange={changeEventHandler}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -109,6 +116,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   name="skills"
                   className="col-span-3"
                   value={input.skills}
+                  onChange={changeEventHandler}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
@@ -121,7 +129,6 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   type="file"
                   accept="application/pdf"
                   className="col-span-3"
-                //   value={input.file}
                 />
               </div>
             </div>
