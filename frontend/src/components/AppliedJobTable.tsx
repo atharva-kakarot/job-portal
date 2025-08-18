@@ -1,3 +1,4 @@
+import { Badge } from "./ui/badge";
 import {
   Table,
   TableBody,
@@ -15,19 +16,21 @@ const AppliedJobTable = () => {
         <TableCaption>List of your applied jobs</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Date</TableHead>
-            <TableHead>Job Role</TableHead>
-            <TableHead>Company</TableHead>
-            <TableHead className="text-right">Status</TableHead>
+            <TableHead className="text-center">Date</TableHead>
+            <TableHead className="text-center">Job Role</TableHead>
+            <TableHead className="text-center">Company</TableHead>
+            <TableHead className="text-center">Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[1, 2, 3, 4].map((item, index) => (
+          {[1, 2, 3, 4].map((index) => (
             <TableRow key={index}>
-              <TableCell>17-08-2025</TableCell>
-              <TableCell>17-08-2025</TableCell>
-              <TableCell>17-08-2025</TableCell>
-              <TableCell>17-08-2025</TableCell>
+              <TableCell className="text-center">17-08-2025</TableCell>
+              <TableCell className="text-center">Frontend Developer</TableCell>
+              <TableCell className="text-center">Google</TableCell>
+              <TableCell className="text-center">
+                <Badge>Selected</Badge>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
