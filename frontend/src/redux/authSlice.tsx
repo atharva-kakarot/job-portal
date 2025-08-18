@@ -1,14 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Profile } from "@/components/UpdateProfileDialog";
+
+interface AuthState {
+  loading: boolean;
+  user: Profile | null;
+}
+
+const initialState: AuthState = {
+  loading: false,
+  user: null,
+};
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { loading: false, user: null },
+  initialState,
   reducers: {
-    setLoading: (state, action) => {
+    setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-
-    setUser: (state, action) => {
+    setUser: (state, action: PayloadAction<Profile | null>) => {
       state.user = action.payload;
     },
   },
