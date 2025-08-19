@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
+import axios from "axios";
 
 interface Props {
   open: boolean;
@@ -47,6 +48,28 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
   const changeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+
+  const fileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+    setInput({ ...input, file });
+  };
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(input);
+
+    const formData = new FormData();
+
+    formData.append("fullname", input.fullname);
+    formData.append("email", input.email);
+    formData.append("phoneNumber", input.phoneNumber);
+    formData.append("bio", input.bio);
+    formData.append("skills", input.skills);
+    if (input.file) {
+      formData.append("file", input.file);
+    }
+  };
+
   return (
     <div>
       <Dialog open={open}>
@@ -57,7 +80,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
           <DialogHeader>
             <DialogTitle>Update Profile</DialogTitle>
           </DialogHeader>
-          <form action="">
+          <form onSubmit={submitHandler}>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="name" className="text-right">
@@ -65,6 +88,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                 </Label>
                 <Input
                   id="name"
+                  type="text"
                   name="name"
                   className="col-span-3"
                   value={input.fullname}
@@ -77,6 +101,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                 </Label>
                 <Input
                   id="email"
+                  type="email"
                   name="email"
                   className="col-span-3"
                   value={input.email}
@@ -90,6 +115,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                 <Input
                   id="number"
                   name="number"
+                  type="number"
                   className="col-span-3"
                   value={input.phoneNumber}
                   onChange={changeEventHandler}
@@ -102,6 +128,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                 <Input
                   id="bio"
                   name="bio"
+                  type="text"
                   className="col-span-3"
                   value={input.bio}
                   onChange={changeEventHandler}
@@ -113,6 +140,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                 </Label>
                 <Input
                   id="skills"
+                  type="text"
                   name="skills"
                   className="col-span-3"
                   value={input.skills}
@@ -129,6 +157,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   type="file"
                   accept="application/pdf"
                   className="col-span-3"
+                  onChange={fileChangeHandler}
                 />
               </div>
             </div>
