@@ -10,9 +10,12 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import axios from "axios";
+import { USER_API_ENDPOINT } from "@/utils/constant";
+import { toast } from "sonner";
+import { setUser } from "@/redux/authSlice";
 
 interface Props {
   open: boolean;
@@ -45,6 +48,8 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
     file: user.profile?.resume || null,
   });
 
+  const dispatch = useDispatch();
+
   const changeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -54,9 +59,8 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
     setInput({ ...input, file });
   };
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(input);
 
     const formData = new FormData();
 
@@ -68,6 +72,27 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
     if (input.file) {
       formData.append("file", input.file);
     }
+
+    try {
+      const res = await axios.post(
+        `${USER_API_ENDPOINT}/profile/update`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true,
+        }
+      );
+      console.log(res);
+      if (res.data.success) {
+        dispatch(setUser(res.data.user));
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.success(error.response?.data?.message);
+      }
+    }
+    setOpen(false);
   };
 
   return (
@@ -89,7 +114,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                 <Input
                   id="name"
                   type="text"
-                  name="name"
+                  name="fullname"
                   className="col-span-3"
                   value={input.fullname}
                   onChange={changeEventHandler}
@@ -114,7 +139,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                 </Label>
                 <Input
                   id="number"
-                  name="number"
+                  name="phoneNumber"
                   type="number"
                   className="col-span-3"
                   value={input.phoneNumber}
