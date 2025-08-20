@@ -8,12 +8,16 @@ import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
 import { useState } from "react";
 import UpdateProfileDialog from "./UpdateProfileDialog";
+import type { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 
-const skills = ["HTML", "CSS", "JavaScript", "ReactJS"];
 const isResume = true;
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
+  const { user } = useSelector((store: RootState) => store.auth);
+  const skills = user?.profile?.skills || [];
+
   return (
     <div>
       <Navbar />
@@ -28,11 +32,8 @@ const Profile = () => {
               />
             </Avatar>
             <div>
-              <h1 className="font-medium text-xl">Full Name</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
+              <h1 className="font-medium text-xl">{user?.fullname}</h1>
+              <p>{user?.profile?.bio}</p>
             </div>
           </div>
           <Button
@@ -46,11 +47,11 @@ const Profile = () => {
         <div className="my-5">
           <div className="flex item-center gap-3 my-2">
             <Mail />
-            <span>atharva@gmail.com</span>
+            <span>{user?.email}</span>
           </div>
           <div className="flex item-center gap-3 my-2">
             <Contact />
-            <span>900000001</span>
+            <span>{user?.phoneNumber}</span>
           </div>
         </div>
         <div className="my-5">
@@ -59,7 +60,7 @@ const Profile = () => {
             {skills.length >= 0 ? (
               skills.map((item, index) => <Badge key={index}>{item}</Badge>)
             ) : (
-              <span>NA</span>
+              <span>N/A</span>
             )}
           </div>
         </div>
@@ -74,7 +75,7 @@ const Profile = () => {
               Atharva Karanjekar
             </a>
           ) : (
-            <span>NA</span>
+            <span>N/A</span>
           )}
         </div>
       </div>
