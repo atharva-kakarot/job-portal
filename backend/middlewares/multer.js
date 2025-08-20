@@ -1,4 +1,4 @@
 import multer from "multer";
 
-const storage = multer.memoryStorage(); // or diskStorage if you want to save files
+const storage = multer.memoryStorage();
 export const singleUpload = multer({ storage }).single("file");
