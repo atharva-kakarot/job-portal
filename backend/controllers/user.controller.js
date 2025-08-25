@@ -7,13 +7,18 @@ import cloudinary from "../utils/cloudinary.js";
 export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
-    console.log(req.body);
+
     if (!fullname || !email || !phoneNumber || !password || !role) {
       return res.status(400).json({
         message: "Some details are missing",
         success: false,
       });
     }
+
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    
+
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
