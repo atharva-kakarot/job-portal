@@ -11,12 +11,16 @@ import UpdateProfileDialog from "./UpdateProfileDialog";
 import type { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 
-const isResume = true;
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store: RootState) => store.auth);
   const skills = user?.profile?.skills || [];
+  const resumeName = user?.profile?.resumeOriginalName || null;
+  const resume = user?.profile?.resume 
+  ? (typeof user.profile.resume === 'string' ? user.profile.resume : URL.createObjectURL(user.profile.resume))
+  : undefined;
+
 
   return (
     <div>
@@ -66,13 +70,13 @@ const Profile = () => {
         </div>
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label className="text-md font-bold ">Resume</Label>
-          {isResume ? (
+          { resumeName ? (
             <a
               target="blank"
-              href="https://github.com/atharva-kakarot"
+              href={resume}
               className="text-blue-500 w-full hover:underline"
             >
-              Atharva Karanjekar
+              {resumeName}
             </a>
           ) : (
             <span>N/A</span>

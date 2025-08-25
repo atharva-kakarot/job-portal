@@ -30,12 +30,14 @@ export interface Profile {
     bio: string;
     skills: string[];
     resume: File | null;
+    resumeOriginalName: string
   };
 }
 
 const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((store: RootState) => store.auth);
+
 
   if (!user) return null;
 
@@ -74,6 +76,7 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
     }
 
     try {
+      setLoading(true);
       const res = await axios.post(
         `${USER_API_ENDPOINT}/profile/update`,
         formData,
@@ -90,6 +93,9 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
       if (axios.isAxiosError(error)) {
         toast.success(error.response?.data?.message);
       }
+    }
+    finally {
+      setLoading(false)
     }
     setOpen(false);
   };
