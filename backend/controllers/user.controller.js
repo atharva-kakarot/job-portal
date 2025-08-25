@@ -116,13 +116,10 @@ export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
     const file = req.file;
-    const fileUri = getDataUri(file);
 
     let cloudResponse;
     if (file) {
       const fileUri = getDataUri(file);
-      const isPDF = file.mimetype === "application/pdf";
-
       cloudResponse = await cloudinary.uploader.upload(fileUri.content);
     }
 
