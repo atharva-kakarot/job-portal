@@ -4,10 +4,10 @@ import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { useNavigate } from "react-router-dom";
+import type { Job } from "@/redux/jobSlice";
 
-const Job = () => {
+const JobCard = ({ job }: { job: Job }) => {
   const navigate = useNavigate();
-  const jodId = "asdfkhsdjkkashdfaf";
   return (
     <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100">
       <div className="flex items-center justify-between">
@@ -23,32 +23,31 @@ const Job = () => {
           </Avatar>
         </Button>
         <div>
-          <h1 className="font-medium text-lg">Company Name</h1>
-          <p className="text-sm text-gray-500">India</p>
+          <h1 className="font-medium text-lg">{job.company.name}</h1>
+          <p className="text-sm text-gray-500">{job.company.location}</p>
         </div>
       </div>
       <div>
-        <h1 className="font-bold text-lg my-2">Title</h1>
+        <h1 className="font-bold text-lg my-2">{job.title}</h1>
         <p className="text-sm text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          {job.description}
         </p>
       </div>
       <div className="flex items-center gap-2 mt-4">
         <Badge className={"text-blue-700 font-bold mr-2"} variant="secondary">
-          12 positions
+          {job.position} positions
         </Badge>
         <Badge className={"text-red-700 font-bold mr-2"} variant="secondary">
-          Part Time
+          {job.jobType}
         </Badge>
         <Badge className={"text-pink-900 font-bold mr-2"} variant="secondary">
-          24 LPA
+          {job.salary} LPA
         </Badge>
       </div>
       <div className="flex items-center gap-4 mt-4">
         <Button
           variant="outline"
-          onClick={() => navigate(`/description/${jodId}`)}
+          onClick={() => navigate(`/description/${job._id}`)}
         >
           Details
         </Button>
@@ -58,4 +57,4 @@ const Job = () => {
   );
 };
 
-export default Job;
+export default JobCard;

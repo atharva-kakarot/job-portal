@@ -27,10 +27,11 @@ export interface Profile {
   email: string;
   phoneNumber: string;
   profile?: {
+    profilePhoto: string;
     bio: string;
     skills: string[];
     resume: File | null;
-    resumeOriginalName: string
+    resumeOriginalName: string;
   };
 }
 
@@ -38,10 +39,10 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((store: RootState) => store.auth);
 
-
   if (!user) return null;
 
   const [input, setInput] = useState({
+    profilePhoto: user.profile?.profilePhoto,
     fullname: user.fullname,
     email: user.email,
     phoneNumber: user.phoneNumber,
@@ -93,9 +94,8 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
       if (axios.isAxiosError(error)) {
         toast.success(error.response?.data?.message);
       }
-    }
-    finally {
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
     setOpen(false);
   };

@@ -69,24 +69,24 @@ const Navbar = () => {
             <Popover>
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src={user.profile?.profilePhoto} />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent>
                 <div className="flex gap-4 space-y-2">
                   <Avatar className="cursor-pointer">
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage src={user.profile?.profilePhoto} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div>
-                    <h4 className="font-medium">Mern Stack</h4>
+                    <h4 className="font-medium">{user.fullname}</h4>
                     <p className="text-sm text-muted-foreground">
-                      Lorem ipsum dolor sit amet.
+                      {user.profile?.bio}
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col gap-3 text-gray-600">
+                <div className="flex flex-col gap-3 mt-5 text-gray-600">
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
                     <User2 />
                     <Button variant="link">

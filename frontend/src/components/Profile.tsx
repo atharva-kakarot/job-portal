@@ -11,16 +11,16 @@ import UpdateProfileDialog from "./UpdateProfileDialog";
 import type { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 
-
 const Profile = () => {
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store: RootState) => store.auth);
   const skills = user?.profile?.skills || [];
   const resumeName = user?.profile?.resumeOriginalName || null;
-  const resume = user?.profile?.resume 
-  ? (typeof user.profile.resume === 'string' ? user.profile.resume : URL.createObjectURL(user.profile.resume))
-  : undefined;
-
+  const resume = user?.profile?.resume
+    ? typeof user.profile.resume === "string"
+      ? user.profile.resume
+      : URL.createObjectURL(user.profile.resume)
+    : undefined;
 
   return (
     <div>
@@ -30,8 +30,8 @@ const Profile = () => {
           <div className="flex items-center gap-4">
             <Avatar className="w-24">
               <AvatarImage
-                className="w-24"
-                src="https://cdn.pixabay.com/photo/2017/02/15/00/48/logo-2067396_1280.png"
+                className="w-24 rounded-full"
+                src={user?.profile?.profilePhoto}
                 alt="profile"
               />
             </Avatar>
@@ -70,7 +70,7 @@ const Profile = () => {
         </div>
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label className="text-md font-bold ">Resume</Label>
-          { resumeName ? (
+          {resumeName ? (
             <a
               target="blank"
               href={resume}
