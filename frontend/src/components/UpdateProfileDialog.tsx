@@ -23,6 +23,7 @@ interface Props {
 }
 
 export interface Profile {
+  _id: string;
   fullname: string;
   email: string;
   phoneNumber: string;
