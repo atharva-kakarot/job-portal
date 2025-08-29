@@ -17,10 +17,10 @@ const JobDescription = () => {
   const { user } = useSelector((store: RootState) => store.auth);
   const isInitiallyApplied =
     singleJob?.applications?.some(
-      (applicationId: string) => console.log(applicationId) == console.log(user?._id)
+      (applicationId: string) =>
+        console.log("applicationId",applicationId) == console.log("userID",user?._id)
     ) || false;
 
-  // console.log(isInitiallyApplied);
   const [isApplied, setApplied] = useState(isInitiallyApplied);
   const dispatch = useDispatch();
 
@@ -33,9 +33,11 @@ const JobDescription = () => {
         ...singleJob,
         applications: [...(singleJob.applications || []), user._id],
       };
+
       dispatch(setSingleJob(updateSingleJob));
-      const res = await axios.get(
+      const res = await axios.post(
         `${APPLICATION_API_ENDPOINT}/apply/${jobId}`,
+        {},
         {
           withCredentials: true,
         }
@@ -45,8 +47,10 @@ const JobDescription = () => {
         toast.success(res.data.message);
       }
     } catch (error) {
+      setApplied(false);
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message);
+        console.log("Apply job error:", error.response?.data);
+        toast.error(error.response?.data?.message || "Failed to apply for job");
       }
     }
   };
