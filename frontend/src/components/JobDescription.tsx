@@ -103,7 +103,11 @@ const JobDescription = () => {
           </div>
         </div>
         <Button
-          onClick={applyJobHandler}
+          onClick={
+            (isApplied ? null : applyJobHandler) as
+              | React.MouseEventHandler<HTMLButtonElement>
+              | undefined
+          }
           disabled={isApplied}
           className={`rounded-lg ${
             isApplied

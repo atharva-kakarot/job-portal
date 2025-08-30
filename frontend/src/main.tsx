@@ -5,12 +5,16 @@ import App from "./App.tsx";
 import { Toaster } from "sonner";
 import { Provider } from "react-redux";
 import store from "./redux/store.tsx";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistStore(store)}>
+        <App />
+        <Toaster />
+      </PersistGate>
     </Provider>
-    <Toaster />
   </StrictMode>
 );
