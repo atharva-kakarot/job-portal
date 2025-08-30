@@ -55,7 +55,7 @@ const JobDescription = () => {
   };
 
   useEffect(() => {
-    const fetchJobById = async () => {
+    const fetchSingleJob = async () => {
       try {
         const res = await axios.get(`${JOB_API_ENDPOINT}/get/${jobId}`, {
           withCredentials: true,
@@ -73,7 +73,7 @@ const JobDescription = () => {
         console.log(error);
       }
     };
-    fetchJobById();
+    fetchSingleJob();
   }, [jobId, dispatch, user?._id]);
 
   return (
