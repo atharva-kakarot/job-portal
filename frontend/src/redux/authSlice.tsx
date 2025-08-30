@@ -1,5 +1,20 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { Profile } from "@/components/UpdateProfileDialog";
+// import type { Profile } from "@/components/UpdateProfileDialog";
+
+interface Profile {
+  _id: string;
+  fullname: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  profile?: {
+    profilePhoto: string;
+    bio: string;
+    skills: string[];
+    resume: File | null;
+    resumeOriginalName: string;
+  };
+}
 
 interface AuthState {
   loading: boolean;
