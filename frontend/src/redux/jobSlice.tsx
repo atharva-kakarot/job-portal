@@ -14,7 +14,7 @@ export interface Job {
   salary: number;
   experienceLevel: number;
   createdAt: string;
-  applications: string[];
+  applications: { applicant: string }[];
 }
 
 interface jobState {
