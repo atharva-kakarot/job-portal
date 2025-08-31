@@ -10,8 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
 
 const CompaniesTable = () => {
+  const { companies } = useSelector((store: RootState) => store.company);
+
   return (
     <div className="my-10">
       <Table>
@@ -25,26 +29,38 @@ const CompaniesTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableCell className="flex items-center justify-center">
-            <Avatar>
-              <AvatarImage src="https://images.seeklogo.com/logo-png/32/1/shutterstock-logo-png_seeklogo-320546.png" />
-            </Avatar>
-          </TableCell>
-          <TableCell className="text-center">Company Name</TableCell>
-          <TableCell className="text-center">12/12/2023</TableCell>
-          <TableCell className="text-center">
-            <Popover>
-              <PopoverTrigger>
-                <MoreHorizontal />
-              </PopoverTrigger>
-              <PopoverContent className="w-32">
-                <div className="flex items-center gap-2 w-fit cursor-pointer">
-                  <Edit2 className="w-4" />
-                  <span>Edit</span>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </TableCell>
+          {companies?.length <= 0 ? (
+            <span>You have not registered a company yet!</span>
+          ) : (
+            companies?.map((company) => {
+              return (
+                <TableRow>
+                  <TableCell className="flex items-center justify-center">
+                    <Avatar>
+                      <AvatarImage src={company.logo} />
+                    </Avatar>
+                  </TableCell>
+                  <TableCell className="text-center">{company.name}</TableCell>
+                  <TableCell className="text-center">
+                    {company.createdAt.split("T")[0]}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <Popover>
+                      <PopoverTrigger>
+                        <MoreHorizontal />
+                      </PopoverTrigger>
+                      <PopoverContent className="w-32">
+                        <div className="flex items-center gap-2 w-fit cursor-pointer">
+                          <Edit2 className="w-4" />
+                          <span>Edit</span>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </TableCell>
+                </TableRow>
+              );
+            })
+          )}
         </TableBody>
       </Table>
     </div>

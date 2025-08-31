@@ -22,21 +22,6 @@ interface Props {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-// export interface Profile {
-//   _id: string;
-//   fullname: string;
-//   email: string;
-//   phoneNumber: string;
-//   role: string;
-//   profile?: {
-//     profilePhoto: string;
-//     bio: string;
-//     skills: string[];
-//     resume: File | null;
-//     resumeOriginalName: string;
-//   };
-// }
-
 const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((store: RootState) => store.auth);
