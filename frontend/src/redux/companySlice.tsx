@@ -11,9 +11,14 @@ export interface Company {
   logo: string;
 }
 
-const initialState: { singleCompany: Company | null; companies: Company[] } = {
+const initialState: {
+  singleCompany: Company | null;
+  companies: Company[];
+  searchCompanyByText: string;
+} = {
   singleCompany: null,
   companies: [],
+  searchCompanyByText: "",
 };
 
 const companySlice = createSlice({
@@ -26,8 +31,12 @@ const companySlice = createSlice({
     setCompanies: (state, action) => {
       state.companies = action.payload;
     },
+    setSearchCompanyByText: (state, action) => {
+      state.searchCompanyByText = action.payload;
+    },
   },
 });
 
-export const { setSingleCompany, setCompanies } = companySlice.actions;
+export const { setSingleCompany, setCompanies, setSearchCompanyByText } =
+  companySlice.actions;
 export default companySlice.reducer;

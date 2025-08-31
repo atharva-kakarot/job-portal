@@ -11,8 +11,11 @@ import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import type { Company } from "@/redux/companySlice";
+import useGetCompanyById from "@/hooks/useGetCompanyById";
 
 const CompanySetup = () => {
+  const params = useParams();
+  useGetCompanyById(params.id || "");
   const [input, setInput] = useState<Company>({
     _id: "",
     name: "",
@@ -26,7 +29,6 @@ const CompanySetup = () => {
 
   const { singleCompany } = useSelector((store: RootState) => store.company);
   const [loading, setLoading] = useState(false);
-  const params = useParams();
   const navigate = useNavigate();
 
   const changeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +95,7 @@ const CompanySetup = () => {
           <div className="flex items-center gap-5 p-8">
             <Button
               onClick={() => navigate("/admin/companies")}
+              type="button"
               variant="outline"
               className="flex items-center gap-2 text-gray-500 font-semibold"
             >
