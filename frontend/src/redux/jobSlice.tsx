@@ -5,6 +5,7 @@ export interface Job {
   company: {
     name: string;
     location: string;
+    logo: string;
   };
   title: string;
   description: string;
