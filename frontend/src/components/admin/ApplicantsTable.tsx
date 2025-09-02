@@ -10,9 +10,14 @@ import {
   TableRow,
 } from "../ui/table";
 
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
+import { Link } from "react-router-dom";
+
 const shortListingStatus = ["Accepted", "Rejected"];
 
 const ApplicantsTable = () => {
+  const { application } = useSelector((store: RootState) => store.application);
   return (
     <div>
       <div>
@@ -20,7 +25,7 @@ const ApplicantsTable = () => {
           <TableCaption>A list your recent applied users</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-center">FullName</TableHead>
+              <TableHead className="text-center">Full Name</TableHead>
               <TableHead className="text-center">Email</TableHead>
               <TableHead className="text-center">Contact</TableHead>
               <TableHead className="text-center">Resume</TableHead>
@@ -29,32 +34,52 @@ const ApplicantsTable = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell className="text-center">Atharva Karanjekar</TableCell>
-              <TableCell className="text-center">atharva@gmail.com</TableCell>
-              <TableCell className="text-center">+91 1234567890</TableCell>
-              <TableCell className="text-center">Resume</TableCell>
-              <TableCell className="text-center">2024-03-15</TableCell>
-              <TableCell className="text-center">
-                <Popover>
-                  <PopoverTrigger>
-                    <MoreHorizontal />
-                  </PopoverTrigger>
-                  <PopoverContent className="w-32">
-                    {shortListingStatus.map((status, index) => {
-                      return (
-                        <div
-                          className="flex w-fit items-center my-2 cursor-pointer"
-                          key={index}
-                        >
-                          <span>{status}</span>
-                        </div>
-                      );
-                    })}
-                  </PopoverContent>
-                </Popover>
-              </TableCell>
-            </TableRow>
+            {application?.map((app) => {
+              return (
+                <TableRow key={app._id}>
+                  <TableCell className="text-center">
+                    {app.applicant?.fullname}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {app.applicant?.email}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {app.applicant?.phoneNumber}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <Link
+                      to={app.applicant?.profile?.resume}
+                      className="text-blue-500 underline"
+                      target="_blank"
+                    >
+                      View
+                    </Link>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {app?.applicant?.createdAt.split("T")[0]}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <Popover>
+                      <PopoverTrigger>
+                        <MoreHorizontal />
+                      </PopoverTrigger>
+                      <PopoverContent className="w-32">
+                        {shortListingStatus.map((status, index) => {
+                          return (
+                            <div
+                              className="flex w-fit items-center my-2 cursor-pointer"
+                              key={index}
+                            >
+                              <span>{status}</span>
+                            </div>
+                          );
+                        })}
+                      </PopoverContent>
+                    </Popover>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </div>
