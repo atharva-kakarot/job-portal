@@ -13,11 +13,33 @@ import {
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { APPLICATION_API_ENDPOINT } from "@/utils/constant";
+import { toast } from "sonner";
 
 const shortListingStatus = ["Accepted", "Rejected"];
 
 const ApplicantsTable = () => {
   const { application } = useSelector((store: RootState) => store.application);
+
+  const statusHandler = async (status: string, id: string) => {
+    try {
+      const res = await axios.post(
+        `${APPLICATION_API_ENDPOINT}/status/${id}/update`,
+        { status },
+        { withCredentials: true }
+      );
+      console.log(res);
+      if (res.data.success) {
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      }
+    }
+  };
+
   return (
     <div>
       <div>
@@ -47,13 +69,17 @@ const ApplicantsTable = () => {
                     {app.applicant?.phoneNumber}
                   </TableCell>
                   <TableCell className="text-center">
-                    <Link
-                      to={app.applicant?.profile?.resume}
-                      className="text-blue-500 underline"
-                      target="_blank"
-                    >
-                      View
-                    </Link>
+                    {app.applicant?.profile?.resume ? (
+                      <Link
+                        to={app.applicant?.profile?.resume}
+                        className="text-blue-500 underline"
+                        target="_blank"
+                      >
+                        View
+                      </Link>
+                    ) : (
+                      <span>N/A</span>
+                    )}
                   </TableCell>
                   <TableCell className="text-center">
                     {app?.applicant?.createdAt.split("T")[0]}
@@ -67,6 +93,7 @@ const ApplicantsTable = () => {
                         {shortListingStatus.map((status, index) => {
                           return (
                             <div
+                              onClick={() => statusHandler(status, app?._id)}
                               className="flex w-fit items-center my-2 cursor-pointer"
                               key={index}
                             >
