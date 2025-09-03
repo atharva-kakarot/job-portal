@@ -18,14 +18,15 @@ interface ApplicationItem {
 }
 
 interface AppliedJob {
-  _id: string;
-  createdAt: string;
-  title: string;
   job: {
+    _id: string;
+    createdAt: string;
+    title: string;
     company: {
       name: string;
     };
   };
+  status: string;
 }
 
 export interface Application {

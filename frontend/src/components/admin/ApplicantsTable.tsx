@@ -29,7 +29,6 @@ const ApplicantsTable = () => {
         { status },
         { withCredentials: true }
       );
-      console.log(res);
       if (res.data.success) {
         toast.success(res.data.message);
       }
@@ -90,17 +89,17 @@ const ApplicantsTable = () => {
                         <MoreHorizontal />
                       </PopoverTrigger>
                       <PopoverContent className="w-32">
-                        {shortListingStatus.map((status, index) => {
-                          return (
-                            <div
-                              onClick={() => statusHandler(status, app?._id)}
-                              className="flex w-fit items-center my-2 cursor-pointer"
-                              key={index}
-                            >
-                              <span>{status}</span>
-                            </div>
-                          );
-                        })}
+                        {shortListingStatus.map((status, index) => (
+                          <div
+                            onClick={() =>
+                              statusHandler(status.toLowerCase(), app?._id)
+                            }
+                            className="flex w-fit items-center my-2 cursor-pointer hover:bg-gray-100 p-2 rounded"
+                            key={index}
+                          >
+                            <span>{status}</span>
+                          </div>
+                        ))}
                       </PopoverContent>
                     </Popover>
                   </TableCell>

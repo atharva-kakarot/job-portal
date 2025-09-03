@@ -13,7 +13,6 @@ import type { RootState } from "@/redux/store";
 
 const AppliedJobTable = () => {
   const { appliedJobs } = useSelector((state: RootState) => state.application);
-  console.log("Applied jobs by the logged in user", appliedJobs);
 
   return (
     <div>
@@ -28,18 +27,24 @@ const AppliedJobTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {appliedJobs.map((appliedJob) => (
-            <TableRow key={appliedJob._id}>
-              <TableCell className="text-center">
-                {appliedJob?.createdAt}
-              </TableCell>
-              <TableCell className="text-center">Frontend Developer</TableCell>
-              <TableCell className="text-center">Google</TableCell>
-              <TableCell className="text-center">
-                <Badge>Selected</Badge>
-              </TableCell>
-            </TableRow>
-          ))}
+          {appliedJobs.map((appliedJob) => {
+            return (
+              <TableRow key={appliedJob?.job._id}>
+                <TableCell className="text-center">
+                  {appliedJob?.job?.createdAt.split("T")[0]}
+                </TableCell>
+                <TableCell className="text-center">
+                  {appliedJob?.job?.title}
+                </TableCell>
+                <TableCell className="text-center">
+                  {appliedJob?.job?.company?.name}
+                </TableCell>
+                <TableCell className="text-center">
+                  <Badge>{appliedJob?.status.toUpperCase()}</Badge>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>
