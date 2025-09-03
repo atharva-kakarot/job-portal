@@ -17,12 +17,25 @@ interface ApplicationItem {
   status: string;
 }
 
+interface AppliedJob {
+  _id: string;
+  createdAt: string;
+  title: string;
+  job: {
+    company: {
+      name: string;
+    };
+  };
+}
+
 export interface Application {
   application: ApplicationItem[];
+  appliedJobs: AppliedJob[];
 }
 
 const initialState: Application = {
   application: [],
+  appliedJobs: [],
 };
 
 const applicationSlice = createSlice({
@@ -32,7 +45,10 @@ const applicationSlice = createSlice({
     setAllApplicants: (state, action) => {
       state.application = action.payload;
     },
+    setAllAppliedJobs: (state, action) => {
+      state.appliedJobs = action.payload;
+    },
   },
 });
-export const { setAllApplicants } = applicationSlice.actions;
+export const { setAllApplicants, setAllAppliedJobs } = applicationSlice.actions;
 export default applicationSlice.reducer;

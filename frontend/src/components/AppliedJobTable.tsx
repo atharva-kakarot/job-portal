@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Badge } from "./ui/badge";
 import {
   Table,
@@ -8,8 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import type { RootState } from "@/redux/store";
 
 const AppliedJobTable = () => {
+  const { appliedJobs } = useSelector((state: RootState) => state.application);
+  console.log("Applied jobs by the logged in user", appliedJobs);
+
   return (
     <div>
       <Table>
@@ -23,9 +28,11 @@ const AppliedJobTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[1, 2, 3, 4].map((index) => (
-            <TableRow key={index}>
-              <TableCell className="text-center">17-08-2025</TableCell>
+          {appliedJobs.map((appliedJob) => (
+            <TableRow key={appliedJob._id}>
+              <TableCell className="text-center">
+                {appliedJob?.createdAt}
+              </TableCell>
               <TableCell className="text-center">Frontend Developer</TableCell>
               <TableCell className="text-center">Google</TableCell>
               <TableCell className="text-center">
