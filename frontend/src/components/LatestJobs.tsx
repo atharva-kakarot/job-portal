@@ -5,6 +5,7 @@ import type React from "react";
 
 const LatestJobs: React.FC = () => {
   const { allJobs } = useSelector((store: RootState) => store.job);
+  console.log(allJobs);
 
   return (
     <div className="max-w-7xl mx-auto my-20">

@@ -23,6 +23,7 @@ interface jobState {
   singleJob: Job | null;
   allAdminJobs: Job[];
   searchJobByText: string;
+  searchedQuery: string;
 }
 
 const initialState: jobState = {
@@ -30,6 +31,7 @@ const initialState: jobState = {
   singleJob: null,
   allAdminJobs: [],
   searchJobByText: "",
+  searchedQuery: "",
 };
 
 const jobSlice = createSlice({
@@ -51,9 +53,18 @@ const jobSlice = createSlice({
     setSearchJobByText: (state, action) => {
       state.searchJobByText = action.payload;
     },
+
+    setSearchedQuery: (state, action) => {
+      state.searchedQuery = action.payload;
+    },
   },
 });
 
-export const { setAllJobs, setSingleJob, setAllAdminJobs, setSearchJobByText } =
-  jobSlice.actions;
+export const {
+  setAllJobs,
+  setSingleJob,
+  setAllAdminJobs,
+  setSearchJobByText,
+  setSearchedQuery,
+} = jobSlice.actions;
 export default jobSlice.reducer;
