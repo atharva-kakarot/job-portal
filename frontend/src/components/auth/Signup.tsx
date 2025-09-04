@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup } from "@/components/ui/radio-group";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
@@ -24,7 +24,7 @@ interface SignupInput {
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
-  const { loading } = useSelector((state: RootState) => state.auth);
+  const { loading, user } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
   const [input, setInput] = useState<SignupInput>({
@@ -75,6 +75,12 @@ const Signup: React.FC = () => {
       dispatch(setLoading(false));
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  },[]);
 
   return (
     <div>
