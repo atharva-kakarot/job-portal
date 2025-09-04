@@ -23,7 +23,7 @@ A full-stack job portal application built with React, TypeScript, Node.js, Expre
 
 ### 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/atharva-kakarot/job-portal.git
 cd job-portal
 ```
 
