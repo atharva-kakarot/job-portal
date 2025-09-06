@@ -53,10 +53,11 @@ const JobCard = ({ job }: { job: Job }) => {
         <Button
           variant="outline"
           onClick={() => navigate(`/description/${job?._id}`)}
+          className="cursor-pointer"
         >
           Details
         </Button>
-        <Button className="bg-[#7209b7]">Save For Later</Button>
+        <Button className="bg-[#7209b7] cursor-pointer">Save For Later</Button>
       </div>
     </div>
   );

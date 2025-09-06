@@ -70,10 +70,12 @@ const Navbar = () => {
           {!user ? (
             <div className=" flex items-center gap-2">
               <Link to="/login">
-                <Button variant="outline">Login</Button>
+                <Button variant="outline" className="cursor-pointer">
+                  Login
+                </Button>
               </Link>
               <Link to="/signup">
-                <Button className="bg-[#6a38c2] hover:bg-[#5b30a6]">
+                <Button className="bg-[#6a38c2] hover:bg-[#5b30a6] cursor-pointer">
                   Signup
                 </Button>
               </Link>
@@ -110,7 +112,11 @@ const Navbar = () => {
                   )}
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
                     <LogOut />
-                    <Button variant="link" onClick={logOutHandler}>
+                    <Button
+                      variant="link"
+                      onClick={logOutHandler}
+                      className="cursor-pointer"
+                    >
                       Logout
                     </Button>
                   </div>
