@@ -38,7 +38,7 @@ export const register = async (req, res) => {
       password: hashedPassword,
       role,
       profile: {
-        profilePhoto: cloudResponse.secure_url,
+        profilePhoto: cloudResponse?.secure_url,
       },
     });
     return res.status(201).json({
@@ -151,8 +151,8 @@ export const updateProfile = async (req, res) => {
     if (skills) user.profile.skills = skillsArray;
 
     if (cloudResponse) {
-      user.profile.resume = cloudResponse.secure_url;
-      user.profile.resumeOriginalName = file.originalname;
+      user.profile.resume = cloudResponse?.secure_url;
+      user.profile.resumeOriginalName = file?.originalname;
     }
 
     await user.save();
