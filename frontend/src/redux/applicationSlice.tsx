@@ -29,14 +29,28 @@ interface AppliedJob {
   status: string;
 }
 
+interface SavedJob {
+  _id: string;
+  job: {
+    _id: string;
+    title: string;
+    company: {
+      name: string;
+    };
+  };
+  updatedAt: string;
+}
+
 export interface Application {
   application: ApplicationItem[];
   appliedJobs: AppliedJob[];
+  savedJobs: SavedJob[];
 }
 
 const initialState: Application = {
   application: [],
   appliedJobs: [],
+  savedJobs: [],
 };
 
 const applicationSlice = createSlice({
@@ -49,7 +63,11 @@ const applicationSlice = createSlice({
     setAllAppliedJobs: (state, action) => {
       state.appliedJobs = action.payload;
     },
+    setSavedJobs: (state, action) => {
+      state.savedJobs = action.payload;
+    },
   },
 });
-export const { setAllApplicants, setAllAppliedJobs } = applicationSlice.actions;
+export const { setAllApplicants, setAllAppliedJobs, setSavedJobs } =
+  applicationSlice.actions;
 export default applicationSlice.reducer;

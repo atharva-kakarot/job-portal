@@ -1,4 +1,3 @@
-import { Bookmark } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar } from "./ui/avatar";
 import { AvatarImage } from "./ui/avatar";
@@ -8,20 +7,48 @@ import type { Job } from "@/redux/jobSlice";
 import TimeAgo from "react-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import TimeAgoLib from "javascript-time-ago";
+import axios from "axios";
+import { APPLICATION_API_ENDPOINT } from "@/utils/constant";
+import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { useSavedJobs } from "@/hooks/useSavedJobs";
+import { setSavedJobs } from "@/redux/applicationSlice";
 
 TimeAgoLib.addDefaultLocale(en);
 
 const JobCard = ({ job }: { job: Job }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { savedJobs } = useSelector((store: any) => store.application);
+  useSavedJobs();
+
+  const isSaved = savedJobs.some(
+    (savedJob: any) => savedJob.job._id === job._id
+  );
+
+  const saveJobHandler = async () => {
+    try {
+      const res = await axios.get(
+        `${APPLICATION_API_ENDPOINT}/save/${job._id}`,
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        dispatch(setSavedJobs([...savedJobs, { job }]));
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message);
+      }
+    }
+  };
+
   return (
     <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100">
       <div className="flex items-center justify-between">
         <p className="text-sm text-gray-500">
           <TimeAgo date={new Date(job?.createdAt)} />
         </p>
-        <Button variant="outline" className="rounded-full" size="icon">
-          <Bookmark />
-        </Button>
       </div>
       <div className="flex items-center gap-2 my-2">
         <Button className="p-6" variant="outline" size="icon">
@@ -57,7 +84,16 @@ const JobCard = ({ job }: { job: Job }) => {
         >
           Details
         </Button>
-        <Button className="bg-[#7209b7] cursor-pointer">Save For Later</Button>
+        {!isSaved ? (
+          <Button
+            className="bg-[#7209b7] cursor-pointer"
+            onClick={saveJobHandler}
+          >
+            Save For Later
+          </Button>
+        ) : (
+          <Button className="bg-gray-600 cursor-not-allowed">Saved</Button>
+        )}
       </div>
     </div>
   );

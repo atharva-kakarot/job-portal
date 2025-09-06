@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { User2, LogOut } from "lucide-react";
+import { User2, LogOut, Bookmark } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
@@ -103,11 +103,19 @@ const Navbar = () => {
                 </div>
                 <div className="flex flex-col gap-3 mt-5 text-gray-600">
                   {user && user?.role === "student" && (
-                    <div className="flex w-fit items-center gap-2 cursor-pointer">
-                      <User2 />
-                      <Button variant="link">
-                        <Link to="/profile">View Profile</Link>
-                      </Button>
+                    <div>
+                      <div className="flex w-fit items-center gap-2 cursor-pointer">
+                        <User2 />
+                        <Button variant="link">
+                          <Link to="/profile">View Profile</Link>
+                        </Button>
+                      </div>
+                      <div className="flex w-fit items-center gap-2 cursor-pointer">
+                        <Bookmark />
+                        <Button variant="link">
+                          <Link to="/saved">Saved Jobs</Link>
+                        </Button>
+                      </div>
                     </div>
                   )}
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
