@@ -31,7 +31,7 @@ const AppliedJobTable = () => {
             return (
               <TableRow key={appliedJob?.job._id}>
                 <TableCell className="text-center">
-                  {appliedJob?.job?.createdAt.split("T")[0]}
+                  {appliedJob?.job?.createdAt?.split("T")[0]}
                 </TableCell>
                 <TableCell className="text-center">
                   {appliedJob?.job?.title}
