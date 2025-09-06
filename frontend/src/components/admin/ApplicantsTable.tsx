@@ -27,7 +27,6 @@ const ApplicantsTable = () => {
       const res = await axios.post(
         `${APPLICATION_API_ENDPOINT}/status/${id}/update`,
         { status },
-        { withCredentials: true }
       );
       if (res.data.success) {
         toast.success(res.data.message);

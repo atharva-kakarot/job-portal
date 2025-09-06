@@ -13,7 +13,7 @@ import type { RootState } from "@/redux/store";
 
 const AppliedJobTable = () => {
   const { appliedJobs } = useSelector((state: RootState) => state.application);
-
+  console.log(appliedJobs);
   return (
     <div>
       <Table>
