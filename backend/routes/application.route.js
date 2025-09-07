@@ -4,8 +4,6 @@ import {
   applyJob,
   getAppliedjobs,
   getJobApplicants,
-  getSavedJobs,
-  saveJob,
   updateStatus,
 } from "../controllers/application.controller.js";
 
@@ -15,7 +13,5 @@ router.route("/apply/:id").get(isAuthenticated, applyJob);
 router.route("/get").get(isAuthenticated, getAppliedjobs);
 router.route("/:id/applicants").get(isAuthenticated, getJobApplicants);
 router.route("/status/:id/update").post(isAuthenticated, updateStatus);
-router.route("/save/:id").get(isAuthenticated, saveJob);
-router.route("/saved").get(isAuthenticated, getSavedJobs);
 
 export default router;

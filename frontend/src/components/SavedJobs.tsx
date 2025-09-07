@@ -3,14 +3,16 @@ import Navbar from "./shared/Navbar";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
+import { useSavedJobs } from "@/hooks/useSavedJobs";
 
 const SavedJobs = () => {
-  const { savedJobs } = useSelector((store: RootState) => store.application);
+  useSavedJobs();
+  const { savedJobs } = useSelector((store: RootState) => store.job);
   return (
     <div>
       <Navbar />
       <div className="max-w-7xl mx-auto mt-10">
-        <h1 className="text-2xl font-bold">Saved Jobs ({savedJobs.length})</h1>
+        <h1 className="text-2xl font-bold">Saved Jobs ({savedJobs?.length})</h1>
         <Table className="mt-10">
           <TableHeader>
             <TableRow>
@@ -20,14 +22,14 @@ const SavedJobs = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {savedJobs.map((job) => (
+            {savedJobs?.map((job) => (
               <TableRow key={job?._id}>
                 <TableCell className="text-center">
-                  {job?.job?.company?.name}
+                  {job?.company?.name}
                 </TableCell>
-                <TableCell className="text-center">{job?.job?.title}</TableCell>
+                <TableCell className="text-center">{job?.title}</TableCell>
                 <TableCell className="text-center">
-                  {job?.updatedAt?.split("T")[0]}
+                  {job?.createdAt?.split("T")[0]}
                 </TableCell>
                 <TableCell className="text-center">
                   <button

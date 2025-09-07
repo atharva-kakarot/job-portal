@@ -8,32 +8,37 @@ import TimeAgo from "react-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import TimeAgoLib from "javascript-time-ago";
 import axios from "axios";
-import { APPLICATION_API_ENDPOINT } from "@/utils/constant";
+import { JOB_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
+import { setSavedJobs } from "@/redux/jobSlice";
 import { useSavedJobs } from "@/hooks/useSavedJobs";
-import { setSavedJobs } from "@/redux/applicationSlice";
 
 TimeAgoLib.addDefaultLocale(en);
 
 const JobCard = ({ job }: { job: Job }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { savedJobs } = useSelector((store: any) => store.application);
+  const { savedJobs } = useSelector((store: any) => store.job);
   useSavedJobs();
 
-  const isSaved = savedJobs.some(
-    (savedJob: any) => savedJob.job._id === job._id
+  const isSaved = savedJobs?.some(
+    (savedJob: Job) =>
+      savedJob.title === job.title && savedJob.company._id === job.company._id
   );
 
   const saveJobHandler = async () => {
     try {
-      const res = await axios.get(
-        `${APPLICATION_API_ENDPOINT}/save/${job._id}`,
-        { withCredentials: true }
-      );
+      const res = await axios.get(`${JOB_API_ENDPOINT}/save/${job._id}`, {
+        withCredentials: true,
+      });
       if (res.data.success) {
-        dispatch(setSavedJobs([...savedJobs, { job }]));
+        const savedRes = await axios.get(`${JOB_API_ENDPOINT}/saved`, {
+          withCredentials: true,
+        });
+        if (savedRes.data.success) {
+          dispatch(setSavedJobs(savedRes.data.savedJobs));
+        }
         toast.success(res.data.message);
       }
     } catch (error) {

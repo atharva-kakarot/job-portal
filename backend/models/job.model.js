@@ -1,5 +1,4 @@
-import { application } from "express";
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
 
 const jobSchema = new mongoose.Schema(
   {
@@ -52,6 +51,11 @@ const jobSchema = new mongoose.Schema(
         ref: "Application",
       },
     ],
+    type: {
+      type: String,
+      enum: ["application", "saved"],
+      default: "application",
+    },
   },
   { timestamps: true }
 );

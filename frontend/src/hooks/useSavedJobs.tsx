@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { APPLICATION_API_ENDPOINT } from "@/utils/constant";
-import { setSavedJobs } from "@/redux/applicationSlice";
+import { JOB_API_ENDPOINT } from "@/utils/constant";
+import { setSavedJobs } from "@/redux/jobSlice";
 
 export const useSavedJobs = () => {
   const dispatch = useDispatch();
@@ -10,9 +10,10 @@ export const useSavedJobs = () => {
   useEffect(() => {
     const fetchSavedJobs = async () => {
       try {
-        const res = await axios.get(`${APPLICATION_API_ENDPOINT}/saved`, {
+        const res = await axios.get(`${JOB_API_ENDPOINT}/saved`, {
           withCredentials: true,
         });
+        console.log("sv",res.data);
         if (res.data.success) {
           dispatch(setSavedJobs(res.data.savedJobs));
         }

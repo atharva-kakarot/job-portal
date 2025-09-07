@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 export interface Job {
   _id: string;
   company: {
+    _id: string;
     name: string;
     location: string;
     logo: string;
@@ -16,12 +17,15 @@ export interface Job {
   experienceLevel: number;
   createdAt: string;
   applications: { applicant: string }[];
+  type: string;
+  originalJobId?: string;
 }
 
 interface jobState {
   allJobs: Job[];
   singleJob: Job | null;
   allAdminJobs: Job[];
+  savedJobs: Job[];
   searchJobByText: string;
   searchedQuery: string;
 }
@@ -30,6 +34,7 @@ const initialState: jobState = {
   allJobs: [],
   singleJob: null,
   allAdminJobs: [],
+  savedJobs: [],
   searchJobByText: "",
   searchedQuery: "",
 };
@@ -57,6 +62,10 @@ const jobSlice = createSlice({
     setSearchedQuery: (state, action) => {
       state.searchedQuery = action.payload;
     },
+
+    setSavedJobs: (state, action: PayloadAction<Job[]>) => {
+      state.savedJobs = action.payload;
+    },
   },
 });
 
@@ -66,5 +75,6 @@ export const {
   setAllAdminJobs,
   setSearchJobByText,
   setSearchedQuery,
+  setSavedJobs,
 } = jobSlice.actions;
 export default jobSlice.reducer;
