@@ -83,7 +83,7 @@ const ApplicantsTable = () => {
                     )}
                   </TableCell>
                   <TableCell className="text-center">
-                    {app?.applicant?.createdAt.split("T")[0]}
+                    {app?.applicant?.createdAt?.split("T")[0]}
                   </TableCell>
                   <TableCell className="text-center">
                     <Popover>

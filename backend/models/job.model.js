@@ -56,6 +56,12 @@ const jobSchema = new mongoose.Schema(
       enum: ["application", "saved"],
       default: "application",
     },
+    savedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { timestamps: true }
 );

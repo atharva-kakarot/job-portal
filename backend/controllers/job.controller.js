@@ -141,62 +141,25 @@ export const saveJob = async (req, res) => {
       });
     }
 
-    const existingSavedJob = await Job.findOne({
-      _id: { $ne: jobId },
-      created_by: req.id,
-      type: "saved",
-      title: { $exists: true },
-    });
+    const job = await Job.findByIdAndUpdate(
+      jobId,
+      { $addToSet: { savedBy: req.id }, type: "saved" },
+      { new: true }
+    );
 
-    if (existingSavedJob) {
-      const originalJob = await Job.findById(jobId);
-      const alreadySaved = await Job.findOne({
-        created_by: req.id,
-        type: "saved",
-        title: originalJob.title,
-        company: originalJob.company,
-      });
-
-      if (alreadySaved) {
-        return res.status(400).json({
-          message: "You have already saved this job.",
-          success: false,
-        });
-      }
-    }
-
-    const originalJob = await Job.findById(jobId);
-    if (!originalJob) {
+    if (!job) {
       return res.status(404).json({
         message: "Job not found.",
         success: false,
       });
     }
 
-    await Job.create({
-      title: originalJob.title,
-      description: originalJob.description,
-      requirements: originalJob.requirements,
-      salary: originalJob.salary,
-      location: originalJob.location,
-      jobType: originalJob.jobType,
-      experienceLevel: originalJob.experienceLevel,
-      position: originalJob.position,
-      company: originalJob.company,
-      created_by: req.id,
-      type: "saved",
-    });
-
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Job saved successfully.",
       success: true,
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
-      message: "Internal server error",
-      success: false,
-    });
   }
 };
 
@@ -204,8 +167,7 @@ export const getSavedJobs = async (req, res) => {
   try {
     const userId = req.id;
     const savedJobs = await Job.find({
-      created_by: userId,
-      type: "saved",
+      savedBy: userId,
     }).populate({
       path: "company",
     });
