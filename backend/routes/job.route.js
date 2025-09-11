@@ -6,6 +6,7 @@ import {
   getSavedJobs,
   postJob,
   saveJob,
+  unsaveJob,
 } from "../controllers/job.controller.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 
@@ -17,5 +18,6 @@ router.route("/getadminjobs").get(isAuthenticated, getAdminJobs);
 router.route("/get/:id").get(isAuthenticated, getJobById);
 router.route("/save/:id").put(isAuthenticated, saveJob);
 router.route("/saved").get(isAuthenticated, getSavedJobs);
+router.route("/unsave/:id").put(isAuthenticated, unsaveJob);
 
 export default router;

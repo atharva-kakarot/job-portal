@@ -187,3 +187,39 @@ export const getSavedJobs = async (req, res) => {
     console.log(error);
   }
 };
+
+export const unsaveJob = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    if (!jobId) {
+      return res.status(400).json({
+        message: "Job ID is required.",
+        success: false,
+      });
+    }
+
+    const job = await Job.findByIdAndUpdate(
+      jobId,
+      { $pull: { savedBy: req.id }, type: "application" },
+      { new: true }
+    );
+
+    if (!job) {
+      return res.status(404).json({
+        message: "Job not found.",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Job unsaved successfully.",
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
+  }
+};

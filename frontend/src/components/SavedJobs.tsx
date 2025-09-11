@@ -8,6 +8,11 @@ import { useSavedJobs } from "@/hooks/useSavedJobs";
 const SavedJobs = () => {
   useSavedJobs();
   const { savedJobs } = useSelector((store: RootState) => store.job);
+
+  const unsaveJobHandler = () => {
+    
+  };
+
   return (
     <div>
       <Navbar />
@@ -33,6 +38,7 @@ const SavedJobs = () => {
                 </TableCell>
                 <TableCell className="text-center">
                   <button
+                    onClick={unsaveJobHandler}
                     aria-label="Close"
                     className="text-gray-400 cursor-pointer"
                   >
