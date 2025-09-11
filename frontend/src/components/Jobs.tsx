@@ -13,9 +13,8 @@ const Jobs = () => {
   const [filterJobs, setFilterJobs] = useState(allJobs);
 
   useEffect(() => {
-    const applicationJobs = allJobs.filter((job) => job.type !== "saved");
     if (searchedQuery) {
-      const filteredJobs = applicationJobs.filter((job) => {
+      const filteredJobs = allJobs.filter((job) => {
         return (
           job?.title?.toLowerCase().includes(searchedQuery.toLowerCase()) ||
           job?.company?.name
@@ -27,7 +26,7 @@ const Jobs = () => {
       });
       setFilterJobs(filteredJobs);
     } else {
-      setFilterJobs(applicationJobs);
+      setFilterJobs(allJobs);
     }
   }, [allJobs, searchedQuery]);
   return (

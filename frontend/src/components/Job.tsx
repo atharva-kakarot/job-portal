@@ -29,9 +29,13 @@ const JobCard = ({ job }: { job: Job }) => {
 
   const saveJobHandler = async () => {
     try {
-      const res = await axios.get(`${JOB_API_ENDPOINT}/save/${job._id}`, {
-        withCredentials: true,
-      });
+      const res = await axios.put(
+        `${JOB_API_ENDPOINT}/save/${job._id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data.success) {
         const savedRes = await axios.get(`${JOB_API_ENDPOINT}/saved`, {
           withCredentials: true,
