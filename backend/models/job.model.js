@@ -51,11 +51,6 @@ const jobSchema = new mongoose.Schema(
         ref: "Application",
       },
     ],
-    type: {
-      type: String,
-      enum: ["application", "saved"],
-      default: "application",
-    },
     savedBy: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -143,7 +143,7 @@ export const saveJob = async (req, res) => {
 
     const job = await Job.findByIdAndUpdate(
       jobId,
-      { $addToSet: { savedBy: req.id }, type: "saved" },
+      { $addToSet: { savedBy: req.id } },
       { new: true }
     );
 
@@ -200,7 +200,7 @@ export const unsaveJob = async (req, res) => {
 
     const job = await Job.findByIdAndUpdate(
       jobId,
-      { $pull: { savedBy: req.id }, type: "application" },
+      { $pull: { savedBy: req.id } },
       { new: true }
     );
 
