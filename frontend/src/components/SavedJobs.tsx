@@ -46,26 +46,34 @@ const SavedJobs = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {savedJobs?.map((job) => (
-              <TableRow key={job?._id}>
-                <TableCell className="text-center">
-                  {job?.company?.name}
-                </TableCell>
-                <TableCell className="text-center">{job?.title}</TableCell>
-                <TableCell className="text-center">
-                  {job?.createdAt?.split("T")[0]}
-                </TableCell>
-                <TableCell className="text-center">
-                  <button
-                    onClick={() => unsaveJobHandler(job._id)}
-                    aria-label="Close"
-                    className="text-gray-400 cursor-pointer"
-                  >
-                    <X size={24} />
-                  </button>
+            {savedJobs.length > 0 ? (
+              savedJobs?.map((job) => (
+                <TableRow key={job?._id}>
+                  <TableCell className="text-center">
+                    {job?.company?.name}
+                  </TableCell>
+                  <TableCell className="text-center">{job?.title}</TableCell>
+                  <TableCell className="text-center">
+                    {job?.createdAt?.split("T")[0]}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <button
+                      onClick={() => unsaveJobHandler(job._id)}
+                      aria-label="Close"
+                      className="text-gray-400 cursor-pointer"
+                    >
+                      <X size={24} />
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell className="text-center" colSpan={4}>
+                  No saved jobs
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </div>

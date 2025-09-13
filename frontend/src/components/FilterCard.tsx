@@ -3,6 +3,7 @@ import { Label } from "./ui/label";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchedQuery } from "@/redux/jobSlice";
+import { FaFilter } from "react-icons/fa";
 
 const filterCardData = [
   {
@@ -37,9 +38,11 @@ const FilterCard = () => {
   }, [selectedValue]);
 
   return (
-    <div className="w-full bg-white p-3 rounded-md">
-      <h1 className="font-bold text-lg">Filter Jobs</h1>
-      <hr className="mt-3" />
+    <div className="w-full bg-white rounded-md border border-gray-100 p-10">
+      <h1 className="flex items-center justify-left font-bold text-lg">
+        <FaFilter className="mr-2 h-4" /> Filters
+      </h1>
+      <hr className="my-3" />
       <RadioGroup value={selectedValue} onValueChange={changeHandler}>
         {filterCardData.map((data, index) => (
           <div key={index}>
@@ -48,8 +51,14 @@ const FilterCard = () => {
               const itemId = `id${idx}-${item}`;
               return (
                 <div className="flex items-center space-x-2 my-2" key={index}>
-                  <RadioGroupItem value={item} id={itemId} />
-                  <Label htmlFor={itemId}>{item}</Label>
+                  <RadioGroupItem
+                    value={item}
+                    id={itemId}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor={itemId} className="cursor-pointer">
+                    {item}
+                  </Label>
                 </div>
               );
             })}

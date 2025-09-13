@@ -15,7 +15,7 @@ const AppliedJobTable = () => {
   const { appliedJobs } = useSelector((state: RootState) => state.application);
   console.log(appliedJobs);
   return (
-    <div>
+    <div className="border border-gray-200 rounded-2xl p-5">
       <Table>
         <TableCaption>List of your applied jobs</TableCaption>
         <TableHeader>
@@ -40,7 +40,19 @@ const AppliedJobTable = () => {
                   {appliedJob?.job?.company?.name}
                 </TableCell>
                 <TableCell className="text-center">
-                  <Badge>{appliedJob?.status.toUpperCase()}</Badge>
+                  {appliedJob?.status === "accepted" ? (
+                    <Badge className="bg-green-500">
+                      {appliedJob?.status.toUpperCase()}
+                    </Badge>
+                  ) : appliedJob?.status === "rejected" ? (
+                    <Badge className="bg-red-500">
+                      {appliedJob?.status.toUpperCase()}
+                    </Badge>
+                  ) : (
+                    <Badge className="bg-yellow-500">
+                      {appliedJob?.status.toUpperCase()}
+                    </Badge>
+                  )}
                 </TableCell>
               </TableRow>
             );
