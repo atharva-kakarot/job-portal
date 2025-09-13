@@ -66,6 +66,11 @@ const jobSlice = createSlice({
     setSavedJobs: (state, action: PayloadAction<Job[]>) => {
       state.savedJobs = action.payload;
     },
+    removeSavedJob: (state, action: PayloadAction<string>) => {
+      state.savedJobs = state.savedJobs.filter(
+        (job) => job._id !== action.payload
+      );
+    },
   },
 });
 
@@ -76,5 +81,6 @@ export const {
   setSearchJobByText,
   setSearchedQuery,
   setSavedJobs,
+  removeSavedJob,
 } = jobSlice.actions;
 export default jobSlice.reducer;

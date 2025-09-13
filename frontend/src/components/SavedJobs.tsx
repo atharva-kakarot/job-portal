@@ -1,16 +1,35 @@
 import { X } from "lucide-react";
 import Navbar from "./shared/Navbar";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import { useSavedJobs } from "@/hooks/useSavedJobs";
+import axios from "axios";
+import { JOB_API_ENDPOINT } from "@/utils/constant";
+import { toast } from "sonner";
+import { removeSavedJob } from "@/redux/jobSlice";
 
 const SavedJobs = () => {
   useSavedJobs();
   const { savedJobs } = useSelector((store: RootState) => store.job);
+  const dispatch = useDispatch();
 
-  const unsaveJobHandler = () => {
-    
+  const unsaveJobHandler = async (jobId: string) => {
+    try {
+      const res = await axios.put(
+        `${JOB_API_ENDPOINT}/unsave/${jobId}`,
+        {},
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        dispatch(removeSavedJob(jobId));
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      }
+    }
   };
 
   return (
@@ -38,7 +57,7 @@ const SavedJobs = () => {
                 </TableCell>
                 <TableCell className="text-center">
                   <button
-                    onClick={unsaveJobHandler}
+                    onClick={() => unsaveJobHandler(job._id)}
                     aria-label="Close"
                     className="text-gray-400 cursor-pointer"
                   >

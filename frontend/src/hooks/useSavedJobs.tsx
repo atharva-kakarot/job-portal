@@ -13,7 +13,6 @@ export const useSavedJobs = () => {
         const res = await axios.get(`${JOB_API_ENDPOINT}/saved`, {
           withCredentials: true,
         });
-        console.log("sv",res.data);
         if (res.data.success) {
           dispatch(setSavedJobs(res.data.savedJobs));
         }
