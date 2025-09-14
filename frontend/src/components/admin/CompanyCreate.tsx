@@ -9,6 +9,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { setSingleCompany } from "@/redux/companySlice";
+import Footer from "../shared/Footer";
 
 const CompanyCreate = () => {
   const navigate = useNavigate();
@@ -38,9 +39,9 @@ const CompanyCreate = () => {
     }
   };
   return (
-    <div>
+    <div className="h-[100vh]">
       <Navbar />
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto h-[100%] mt-20">
         <div className="my-10">
           <h1 className="font-bold text-2xl">Your Company Name</h1>
           <p className="text-gray-500">
@@ -67,6 +68,7 @@ const CompanyCreate = () => {
           <Button onClick={registerNewCompany}>Continue</Button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

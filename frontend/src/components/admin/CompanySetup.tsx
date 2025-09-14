@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/store";
 import type { Company } from "@/redux/companySlice";
 import useGetCompanyById from "@/hooks/useGetCompanyById";
+import Footer from "../shared/Footer";
 
 const CompanySetup = () => {
   const params = useParams();
@@ -88,16 +89,19 @@ const CompanySetup = () => {
   }, [singleCompany]);
 
   return (
-    <div>
+    <div className="h-[100vh]">
       <Navbar />
-      <div className="max-w-xl mx-auto my-10">
-        <form onSubmit={submitHandler}>
-          <div className="flex items-center gap-5 p-8">
+      <div className="max-w-xl mx-auto my-10 h-[100%]">
+        <form
+          onSubmit={submitHandler}
+          className="border border-gray-200 p-8 rounded-2xl"
+        >
+          <div className="flex items-center gap-5 mb-5 p-5 pl-0">
             <Button
               onClick={() => navigate("/admin/companies")}
               type="button"
               variant="outline"
-              className="flex items-center gap-2 text-gray-500 font-semibold"
+              className="flex items-center text-gray-500 font-semibold"
             >
               <ArrowLeft />
               <span>Back</span>
@@ -106,7 +110,7 @@ const CompanySetup = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>Company Name</Label>
+              <Label className="mt-2 mb-2">Company Name</Label>
               <Input
                 type="text"
                 name="name"
@@ -115,7 +119,7 @@ const CompanySetup = () => {
               />
             </div>
             <div>
-              <Label>Description</Label>
+              <Label className="mt-2 mb-2">Description</Label>
               <Input
                 type="text"
                 name="description"
@@ -124,7 +128,7 @@ const CompanySetup = () => {
               />
             </div>
             <div>
-              <Label>Website</Label>
+              <Label className="mt-2 mb-2">Website</Label>
               <Input
                 type="text"
                 name="website"
@@ -133,7 +137,7 @@ const CompanySetup = () => {
               />
             </div>
             <div>
-              <Label>Location</Label>
+              <Label className="mt-2 mb-2">Location</Label>
               <Input
                 type="text"
                 name="location"
@@ -142,7 +146,7 @@ const CompanySetup = () => {
               />
             </div>
             <div>
-              <Label>Logo</Label>
+              <Label className="mt-2 mb-2">Logo</Label>
               <Input
                 type="file"
                 accept="image/*"
@@ -166,6 +170,7 @@ const CompanySetup = () => {
           )}
         </form>
       </div>
+      <Footer />
     </div>
   );
 };

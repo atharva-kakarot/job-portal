@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllApplicants } from "@/redux/applicationSlice";
 import type { RootState } from "@/redux/store";
+import Footer from "../shared/Footer";
 
 const Applicants = () => {
   const params = useParams();
@@ -32,14 +33,15 @@ const Applicants = () => {
   const { application } = useSelector((store: RootState) => store.application);
 
   return (
-    <div>
+    <div className="h-[100vh]">
       <Navbar />
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto h-[100%] mt-10">
         <h1 className="font-bold text-xl my-5">
           Applicants ({application.length})
         </h1>
         <ApplicantsTable />
       </div>
+      <Footer />
     </div>
   );
 };

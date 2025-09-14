@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { setSearchJobByText } from "@/redux/jobSlice";
 import AdminJobsTable from "./AdminJobsTable";
 import useGetAllAdminJobs from "@/hooks/useGetAllAdminJobs";
+import Footer from "../shared/Footer";
+import { FaPlus } from "react-icons/fa6";
 
 const AdminJobs = () => {
   useGetAllAdminJobs();
@@ -19,7 +21,7 @@ const AdminJobs = () => {
   }, [input]);
 
   return (
-    <div>
+    <div className="h-[100vh]">
       <Navbar />
       <div className="max-w-6xl mx-auto my-10">
         <div className="flex flex-center justify-between my-5">
@@ -32,11 +34,12 @@ const AdminJobs = () => {
             onClick={() => navigate("/admin/jobs/create")}
             className="cursor-pointer"
           >
-            New Jobs
+            <FaPlus /> New Job
           </Button>
         </div>
         <AdminJobsTable />
       </div>
+      <Footer />
     </div>
   );
 };

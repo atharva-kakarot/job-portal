@@ -3,7 +3,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -43,11 +42,10 @@ const ApplicantsTable = () => {
 
   return (
     <div>
-      <div>
+      <div className="max-w-7xl border border-gray-200 rounded-2xl mb-20">
         <Table>
-          <TableCaption>A list your recent applied users</TableCaption>
           <TableHeader>
-            <TableRow>
+            <TableRow className="h-12">
               <TableHead className="text-center">Full Name</TableHead>
               <TableHead className="text-center">Email</TableHead>
               <TableHead className="text-center">Contact</TableHead>
@@ -87,7 +85,7 @@ const ApplicantsTable = () => {
                   </TableCell>
                   <TableCell className="text-center">
                     <Popover>
-                      <PopoverTrigger>
+                      <PopoverTrigger className="cursor-pointer">
                         <MoreHorizontal />
                       </PopoverTrigger>
                       <PopoverContent className="w-32">

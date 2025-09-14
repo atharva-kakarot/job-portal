@@ -11,6 +11,7 @@ import UpdateProfileDialog from "./UpdateProfileDialog";
 import type { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import useGetAllAppliedJobs from "@/hooks/useGetAllAppliedJobs";
+import Footer from "./shared/Footer";
 
 const Profile = () => {
   useGetAllAppliedJobs();
@@ -85,11 +86,12 @@ const Profile = () => {
           )}
         </div>
       </div>
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl mb-30">
         <h1 className="font-bold text-lg my-5">Applied Jobs</h1>
         <AppliedJobTable />
       </div>
       <UpdateProfileDialog open={open} setOpen={setOpen} />
+      <Footer />
     </div>
   );
 };

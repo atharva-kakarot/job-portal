@@ -38,7 +38,7 @@ const FilterCard = () => {
   }, [selectedValue]);
 
   return (
-    <div className="w-full bg-white rounded-md border border-gray-100 p-10">
+    <div className="w-full bg-white rounded-md border border-gray-100 p-10 mb-10">
       <h1 className="flex items-center justify-left font-bold text-lg">
         <FaFilter className="mr-2 h-4" /> Filters
       </h1>

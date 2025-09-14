@@ -18,6 +18,7 @@ import { JOB_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import Footer from "../shared/Footer";
 
 const PostJob = () => {
   const [input, setInput] = useState({
@@ -75,132 +76,137 @@ const PostJob = () => {
   const { companies } = useSelector((store: RootState) => store.company);
 
   return (
-    <div>
+    <div className="h-[100vh]">
       <Navbar />
-      <div className="flex items-center justify-center w-screen my-5">
-        <form
-          onSubmit={submitHandler}
-          className="p-8 max-w-4xl border border-gray-200 shadow-lg rounded-md"
-        >
-          <div className="flex flex-col items-center">
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <Label>Title</Label>
-                <Input
-                  type="text"
-                  name="title"
-                  value={input.title}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                  onChange={changeEventHandler}
-                />
+      <div className="h-[100%]">
+        <div className="flex items-center justify-center my-10">
+          <form
+            onSubmit={submitHandler}
+            className="p-8 max-w-4xl border border-gray-200 shadow-lg rounded-md"
+          >
+            <div className="flex flex-col items-center">
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <Label>Title</Label>
+                  <Input
+                    type="text"
+                    name="title"
+                    value={input.title}
+                    className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                    onChange={changeEventHandler}
+                  />
+                </div>
+                <div>
+                  <Label>Description</Label>
+                  <Input
+                    type="text"
+                    name="description"
+                    value={input.description}
+                    className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                    onChange={changeEventHandler}
+                  />
+                </div>
+                <div>
+                  <Label>Requirements</Label>
+                  <Input
+                    type="text"
+                    name="requirements"
+                    value={input.requirements}
+                    className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                    onChange={changeEventHandler}
+                  />
+                </div>
+                <div>
+                  <Label>Salary</Label>
+                  <Input
+                    type="text"
+                    name="salary"
+                    value={input.salary}
+                    className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                    onChange={changeEventHandler}
+                  />
+                </div>
+                <div>
+                  <Label>Location</Label>
+                  <Input
+                    type="text"
+                    name="location"
+                    value={input.location}
+                    className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                    onChange={changeEventHandler}
+                  />
+                </div>
+                <div>
+                  <Label>Job Type</Label>
+                  <Input
+                    type="text"
+                    name="jobType"
+                    value={input.jobType}
+                    className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                    onChange={changeEventHandler}
+                  />
+                </div>
+                <div>
+                  <Label>Experience</Label>
+                  <Input
+                    type="number"
+                    name="experienceLevel"
+                    value={input.experienceLevel}
+                    className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                    onChange={changeEventHandler}
+                  />
+                </div>
+                <div>
+                  <Label>Position</Label>
+                  <Input
+                    type="number"
+                    name="position"
+                    value={input.position}
+                    className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                    onChange={changeEventHandler}
+                  />
+                </div>
+                {companies.length > 0 && (
+                  <Select onValueChange={selectChangeHandler}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a Company"></SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {companies.map((company) => {
+                          return (
+                            <SelectItem
+                              value={company?.name?.toLowerCase()}
+                              key={company._id}
+                            >
+                              {company.name}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
               </div>
-              <div>
-                <Label>Description</Label>
-                <Input
-                  type="text"
-                  name="description"
-                  value={input.description}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                  onChange={changeEventHandler}
-                />
-              </div>
-              <div>
-                <Label>Requirements</Label>
-                <Input
-                  type="text"
-                  name="requirements"
-                  value={input.requirements}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                  onChange={changeEventHandler}
-                />
-              </div>
-              <div>
-                <Label>Salary</Label>
-                <Input
-                  type="text"
-                  name="salary"
-                  value={input.salary}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                  onChange={changeEventHandler}
-                />
-              </div>
-              <div>
-                <Label>Location</Label>
-                <Input
-                  type="text"
-                  name="location"
-                  value={input.location}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                  onChange={changeEventHandler}
-                />
-              </div>
-              <div>
-                <Label>Job Type</Label>
-                <Input
-                  type="text"
-                  name="jobType"
-                  value={input.jobType}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                  onChange={changeEventHandler}
-                />
-              </div>
-              <div>
-                <Label>Experience</Label>
-                <Input
-                  type="number"
-                  name="experienceLevel"
-                  value={input.experienceLevel}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                  onChange={changeEventHandler}
-                />
-              </div>
-              <div>
-                <Label>Position</Label>
-                <Input
-                  type="number"
-                  name="position"
-                  value={input.position}
-                  className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                  onChange={changeEventHandler}
-                />
-              </div>
-              {companies.length > 0 && (
-                <Select onValueChange={selectChangeHandler}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a Company"></SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {companies.map((company) => {
-                        return (
-                          <SelectItem
-                            value={company?.name?.toLowerCase()}
-                            key={company._id}
-                          >
-                            {company.name}
-                          </SelectItem>
-                        );
-                      })}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              )}
             </div>
-          </div>
-          {loading ? (
-            <Button className="w-full my-4">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
-            </Button>
-          ) : (
-            <Button className="mt-5 cursor-pointer w-full">Post New Job</Button>
-          )}
-          {companies.length == 0 && (
-            <p className="text-xs text-red-600 font-bold text-ce mt-3">
-              *Please register a company first before posting a job.
-            </p>
-          )}
-        </form>
+            {loading ? (
+              <Button className="w-full my-4">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
+              </Button>
+            ) : (
+              <Button className="mt-5 cursor-pointer w-full">
+                Post New Job
+              </Button>
+            )}
+            {companies.length == 0 && (
+              <p className="text-xs text-red-600 font-bold text-ce mt-3">
+                *Please register a company first before posting a job.
+              </p>
+            )}
+          </form>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };

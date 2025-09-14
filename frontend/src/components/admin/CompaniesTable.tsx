@@ -4,7 +4,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -35,11 +34,10 @@ const CompaniesTable = () => {
   }, [companies, searchCompanyByText]);
 
   return (
-    <div className="my-10">
+    <div className="my-10 border border-gray-200 rounded-2xl">
       <Table>
-        <TableCaption>A list of your recent registered companies</TableCaption>
         <TableHeader>
-          <TableRow>
+          <TableRow className="h-12">
             <TableHead className="text-center">Logo</TableHead>
             <TableHead className="text-center">Name</TableHead>
             <TableHead className="text-center">Date</TableHead>
@@ -64,7 +62,7 @@ const CompaniesTable = () => {
                   </TableCell>
                   <TableCell className="text-center">
                     <Popover>
-                      <PopoverTrigger>
+                      <PopoverTrigger className="cursor-pointer">
                         <MoreHorizontal />
                       </PopoverTrigger>
                       <PopoverContent className="w-32">

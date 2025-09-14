@@ -8,6 +8,7 @@ import axios from "axios";
 import { JOB_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
 import { removeSavedJob } from "@/redux/jobSlice";
+import Footer from "./shared/Footer";
 
 const SavedJobs = () => {
   useSavedJobs();
@@ -35,48 +36,52 @@ const SavedJobs = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto mt-10">
+      <div className="max-w-7xl h-[100vh] mx-auto mt-10">
         <h1 className="text-2xl font-bold">Saved Jobs ({savedJobs?.length})</h1>
-        <Table className="mt-10">
-          <TableHeader>
-            <TableRow>
-              <TableCell className="text-center">Company</TableCell>
-              <TableCell className="text-center">Role</TableCell>
-              <TableCell className="text-center">Date</TableCell>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {savedJobs.length > 0 ? (
-              savedJobs?.map((job) => (
-                <TableRow key={job?._id}>
-                  <TableCell className="text-center">
-                    {job?.company?.name}
-                  </TableCell>
-                  <TableCell className="text-center">{job?.title}</TableCell>
-                  <TableCell className="text-center">
-                    {job?.createdAt?.split("T")[0]}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <button
-                      onClick={() => unsaveJobHandler(job._id)}
-                      aria-label="Close"
-                      className="text-gray-400 cursor-pointer"
-                    >
-                      <X size={24} />
-                    </button>
+        <div className="border border-gray-200 mt-10 rounded-2xl">
+          <Table>
+            <TableHeader>
+              <TableRow className="h-12">
+                <TableCell className="text-center">Company</TableCell>
+                <TableCell className="text-center">Role</TableCell>
+                <TableCell className="text-center">Date</TableCell>
+                <TableCell className="text-center"></TableCell>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {savedJobs.length > 0 ? (
+                savedJobs?.map((job) => (
+                  <TableRow key={job?._id}>
+                    <TableCell className="text-center">
+                      {job?.company?.name}
+                    </TableCell>
+                    <TableCell className="text-center">{job?.title}</TableCell>
+                    <TableCell className="text-center">
+                      {job?.createdAt?.split("T")[0]}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <button
+                        onClick={() => unsaveJobHandler(job._id)}
+                        aria-label="Close"
+                        className="text-gray-400 cursor-pointer"
+                      >
+                        <X size={24} />
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell className="text-center" colSpan={4}>
+                    No saved jobs
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell className="text-center" colSpan={4}>
-                  No saved jobs
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };

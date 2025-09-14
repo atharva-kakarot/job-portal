@@ -5,6 +5,7 @@ import type { RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { setSearchedQuery } from "@/redux/jobSlice";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
+import Footer from "./shared/Footer";
 
 const Browse = () => {
   useGetAllJobs();
@@ -19,16 +20,19 @@ const Browse = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto my-10">
+      <div className="max-w-7xl mx-auto h-[100%] my-10">
         <h1 className="font-bold text-xl my-10">
           Search Results ({allJobs.length})
         </h1>
         <div className="grid grid-cols-3 gap-4 mt-5">
-          {allJobs.map((job) => (
-            <Job key={job._id} job={job} />
-          ))}
+          {allJobs.length > 0 ? (
+            allJobs.map((job) => <Job key={job._id} job={job} />)
+          ) : (
+            <span>No jobs found.</span>
+          )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

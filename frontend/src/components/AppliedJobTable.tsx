@@ -3,7 +3,6 @@ import { Badge } from "./ui/badge";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -15,9 +14,8 @@ const AppliedJobTable = () => {
   const { appliedJobs } = useSelector((state: RootState) => state.application);
   console.log(appliedJobs);
   return (
-    <div className="border border-gray-200 rounded-2xl p-5">
+    <div className="border border-gray-200 rounded-2xl">
       <Table>
-        <TableCaption>List of your applied jobs</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="text-center">Date</TableHead>

@@ -3,7 +3,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -32,11 +31,10 @@ const AdminJobsTable = () => {
   }, [allAdminJobs, searchJobByText]);
 
   return (
-    <div className="my-10">
+    <div className="my-10 border border-gray-200 rounded-2xl mb-20">
       <Table>
-        <TableCaption>A list of your recent posted jobs</TableCaption>
         <TableHeader>
-          <TableRow>
+          <TableRow className="h-12">
             <TableHead className="text-center">Company Name</TableHead>
             <TableHead className="text-center">Role</TableHead>
             <TableHead className="text-center">Date</TableHead>
@@ -45,8 +43,13 @@ const AdminJobsTable = () => {
         </TableHeader>
         <TableBody>
           {filterJobs?.length <= 0 ? (
-            <span>You have not registered a company yet!</span>
+            <TableRow>
+              <TableCell colSpan={4} className="text-center">
+                You have not registered a company yet!
+              </TableCell>
+            </TableRow>
           ) : (
+            // <span className="col-span-4 text-center">You have not registered a company yet!</span>
             filterJobs?.map((job) => {
               return (
                 <TableRow>
