@@ -20,7 +20,7 @@ const useGetAllCompanies = () => {
       }
     };
     fetchAllCompanies();
-  }, []);
+  }, [dispatch]);
 };
 
 export default useGetAllCompanies;

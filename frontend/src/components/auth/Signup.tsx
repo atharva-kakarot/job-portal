@@ -80,7 +80,7 @@ const Signup: React.FC = () => {
     if (user) {
       navigate("/");
     }
-  },[]);
+  }, [user, navigate]);
 
   return (
     <div>

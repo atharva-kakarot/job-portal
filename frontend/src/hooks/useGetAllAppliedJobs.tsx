@@ -20,7 +20,7 @@ const useGetAllAppliedJobs = () => {
       }
     };
     fetchAllAppliedJobs();
-  });
+  }, [dispatch]);
 };
 
 export default useGetAllAppliedJobs;

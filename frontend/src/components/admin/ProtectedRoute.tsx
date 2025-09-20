@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     if (user === null || user.role !== "recruiter") {
       navigate("/");
     }
-  }, []);
+  }, [user, navigate]);
 
   return <>{children}</>;
 };
