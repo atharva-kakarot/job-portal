@@ -17,12 +17,19 @@ const Profile = () => {
   useGetAllAppliedJobs();
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store: RootState) => store.auth);
+  console.log(user);
   const skills = user?.profile?.skills || [];
   const resumeName = user?.profile?.resumeOriginalName || null;
   const resume = user?.profile?.resume
     ? typeof user.profile.resume === "string"
       ? user.profile.resume
       : URL.createObjectURL(user.profile.resume)
+    : undefined;
+
+  const profilePhoto = user?.profile?.profilePhoto
+    ? typeof user.profile.profilePhoto === "string"
+      ? user.profile.profilePhoto
+      : URL.createObjectURL(user.profile.profilePhoto)
     : undefined;
 
   return (
@@ -34,7 +41,7 @@ const Profile = () => {
             <Avatar className="w-24">
               <AvatarImage
                 className="w-24 rounded-full"
-                src={user?.profile?.profilePhoto}
+                src={profilePhoto}
                 alt="profile"
               />
             </Avatar>

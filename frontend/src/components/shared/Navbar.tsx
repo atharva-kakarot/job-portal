@@ -16,6 +16,13 @@ import { setUser } from "@/redux/authSlice";
 
 const Navbar = () => {
   const { user } = useSelector((state: RootState) => state.auth);
+
+  const profilePhoto = user?.profile?.profilePhoto
+    ? typeof user.profile.profilePhoto === "string"
+      ? user.profile.profilePhoto
+      : URL.createObjectURL(user.profile.profilePhoto)
+    : undefined;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -84,14 +91,14 @@ const Navbar = () => {
             <Popover>
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src={user.profile?.profilePhoto} />
+                  <AvatarImage src={profilePhoto} />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent>
                 <div className="flex gap-4 space-y-2">
                   <Avatar className="cursor-pointer">
-                    <AvatarImage src={user.profile?.profilePhoto} />
+                    <AvatarImage src={profilePhoto} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div>
@@ -110,7 +117,7 @@ const Navbar = () => {
                           <Link to="/profile">View Profile</Link>
                         </Button>
                       </div>
-                      <div className="flex w-fit items-center gap-2 cursor-pointer">
+                      <div className="flex w-fit items-center gap-2 cursor-pointer mt-3">
                         <Bookmark />
                         <Button variant="link">
                           <Link to="/saved">Saved Jobs</Link>

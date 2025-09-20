@@ -49,6 +49,10 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
     setInput({ ...input, file });
   };
 
+  const changeProfileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput({ ...input, profilePhoto: e.target.files?.[0] || null });
+  };
+
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -61,6 +65,10 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
     formData.append("skills", input.skills);
     if (input.file) {
       formData.append("file", input.file);
+    }
+
+    if (input.profilePhoto) {
+      formData.append("file", input.profilePhoto);
     }
 
     try {
@@ -175,6 +183,18 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   accept="application/pdf"
                   className="col-span-3"
                   onChange={fileChangeHandler}
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="file" className="text-right">
+                  Profile
+                </Label>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  className="col-span-3"
+                  name="file"
+                  onChange={changeProfileHandler}
                 />
               </div>
             </div>

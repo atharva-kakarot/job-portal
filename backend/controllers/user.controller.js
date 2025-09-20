@@ -159,6 +159,7 @@ export const updateProfile = async (req, res) => {
     if (cloudResponse) {
       user.profile.resume = cloudResponse?.secure_url;
       user.profile.resumeOriginalName = file?.originalname;
+      user.profile.profilePhoto = cloudResponse?.secure_url;
     }
 
     await user.save();

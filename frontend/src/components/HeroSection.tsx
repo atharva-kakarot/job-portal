@@ -22,8 +22,8 @@ const HeroSection = () => {
           No.1 Job Hunting Website
         </span>
         <h1 className="w-3xl leading-14 mx-auto text-5xl font-bold mb-5">
-          Search, Apply, &
-          Get rid of your <span className="text-[#6A38C2]">Umemployment</span>
+          Search, Apply, & Find your{" "}
+          <span className="text-[#6A38C2]">Dream Job</span>
         </h1>
         <div className="flex w-[40%] shadow-lg border border-gray-200 pl-3 rounded-full items-center gap-4 mx-auto">
           <input

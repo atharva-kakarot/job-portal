@@ -8,7 +8,7 @@ interface Profile {
   phoneNumber: string;
   role: string;
   profile?: {
-    profilePhoto: string;
+    profilePhoto: File | null;
     bio: string;
     skills: string[];
     resume: File | null;

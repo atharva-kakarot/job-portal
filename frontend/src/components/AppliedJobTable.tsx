@@ -12,7 +12,6 @@ import type { RootState } from "@/redux/store";
 
 const AppliedJobTable = () => {
   const { appliedJobs } = useSelector((state: RootState) => state.application);
-  console.log(appliedJobs);
   return (
     <div className="border border-gray-200 rounded-2xl">
       <Table>
