@@ -149,13 +149,7 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
-    const file = req.file;
-
-    let cloudResponse;
-    if (file) {
-      const fileUri = getDataUri(file);
-      cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-    }
+    const files = req.files;
 
     let skillsArray;
     if (skills) {
@@ -164,39 +158,37 @@ export const updateProfile = async (req, res) => {
     const userId = req.id;
     let user = await User.findById(userId);
 
-    if (!userId) {
-      return res.status(400).json({
-        message: "User not found",
-        success: false,
-      });
-    }
-
     if (fullname) user.fullname = fullname;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skills) user.profile.skills = skillsArray;
 
-    if (cloudResponse) {
-      user.profile.resume = cloudResponse?.secure_url;
-      user.profile.resumeOriginalName = file?.originalname;
-      user.profile.profilePhoto = cloudResponse?.secure_url;
+    if (files?.profilePhoto) {
+      const fileUri = getDataUri(files.profilePhoto[0]);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      user.profile.profilePhoto = cloudResponse.secure_url;
+    }
+
+    if (files?.resume) {
+      const fileUri = getDataUri(files.resume[0]);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      user.profile.resume = cloudResponse.secure_url;
+      user.profile.resumeOriginalName = files.resume[0].originalname;
     }
 
     await user.save();
 
-    user = {
-      _id: user._id,
-      fullname: user.fullname,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      role: user.role,
-      profile: user.profile,
-    };
-
     return res.status(200).json({
       message: "Profile updated successfully!",
-      user,
+      user: {
+        _id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role,
+        profile: user.profile,
+      },
       success: true,
     });
   } catch (error) {
