@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 const useGetAllJobs = () => {
   const dispatch = useDispatch();
   const { searchedQuery } = useSelector((store: RootState) => store.job);
+  const { user } = useSelector((store: RootState) => store.auth);
   useEffect(() => {
+    if (!user) return;
     const fetchAllJobs = async () => {
       try {
         const res = await axios.get(
