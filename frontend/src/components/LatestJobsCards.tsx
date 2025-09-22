@@ -7,24 +7,32 @@ const LatestJobsCards = ({ job }: { job: Job }) => {
   return (
     <div
       onClick={() => navigate(`/description/${job?._id}`)}
-      className="p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer"
+      className="w-[90%] sm:w-full p-5 rounded-md shadow-xl bg-white border border-gray-100 cursor-pointer"
     >
       <div>
-        <h1 className="font-medium text-lg">{job?.company?.name}</h1>
+        <h1 className="text-md sm:text-lg font-medium">{job?.company?.name}</h1>
         <p className="text-sm text-gray-500">{job?.company?.location}</p>
       </div>
       <div>
-        <h1 className="font-bold text-lg my-2">{job?.title}</h1>
+        <h1 className="text-sm sm:font-bold sm:text-lg my-2 mb-0 sm:my-2">
+          {job?.title}
+        </h1>
         <p className="text-sm text-gray-500">{job?.description}</p>
       </div>
       <div className="flex items-center gap-2 mt-4">
-        <Badge className={"text-blue-700 font-bold mr-2"} variant="secondary">
+        <Badge
+          className={"text-blue-700 sm:font-bold mr-2"}
+          variant="secondary"
+        >
           {job?.position} positions
         </Badge>
-        <Badge className={"text-red-700 font-bold mr-2"} variant="secondary">
+        <Badge className={"text-red-700 sm:font-bold mr-2"} variant="secondary">
           {job?.jobType}
         </Badge>
-        <Badge className={"text-pink-900 font-bold mr-2"} variant="secondary">
+        <Badge
+          className={"text-pink-900 sm:font-bold mr-2"}
+          variant="secondary"
+        >
           {job?.salary} LPA
         </Badge>
       </div>

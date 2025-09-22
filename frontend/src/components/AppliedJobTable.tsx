@@ -17,36 +17,44 @@ const AppliedJobTable = () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-center">Date</TableHead>
-            <TableHead className="text-center">Job Role</TableHead>
-            <TableHead className="text-center">Company</TableHead>
-            <TableHead className="text-center">Status</TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Date
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Job Role
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Company
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Status
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {appliedJobs.map((appliedJob) => {
             return (
               <TableRow key={appliedJob?.job._id}>
-                <TableCell className="text-center">
+                <TableCell className="text-center text-[0.8rem] sm:text-base">
                   {appliedJob?.job?.createdAt?.split("T")[0]}
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center text-[0.8rem] sm:text-base">
                   {appliedJob?.job?.title}
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center text-[0.8rem] sm:text-base">
                   {appliedJob?.job?.company?.name}
                 </TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center text-[0.8rem] sm:text-base">
                   {appliedJob?.status === "accepted" ? (
-                    <Badge className="bg-green-500">
+                    <Badge className="bg-green-500 text-[0.7rem] sm:text-base">
                       {appliedJob?.status.toUpperCase()}
                     </Badge>
                   ) : appliedJob?.status === "rejected" ? (
-                    <Badge className="bg-red-500">
+                    <Badge className="bg-red-500 text-[0.7rem] sm:text-base">
                       {appliedJob?.status.toUpperCase()}
                     </Badge>
                   ) : (
-                    <Badge className="bg-yellow-500">
+                    <Badge className="bg-yellow-500 text-[0.7rem] sm:text-base">
                       {appliedJob?.status.toUpperCase()}
                     </Badge>
                   )}

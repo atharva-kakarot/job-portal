@@ -67,15 +67,16 @@ const Login = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center max-w-4xl mx-auto">
+      <div className="flex flex-col items-center justify-center max-w-3xl mx-auto px-4">
         <form
           onSubmit={submitHandler}
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
+          className="flex flex-col w-full sm:w-3/4 md:w-1/2 border border-gray-200 rounded-md p-4 sm:p-6 my-10 mb-3"
         >
-          <h1 className="font-bold text-xl mb-5">Login</h1>
+          <h1 className="font-bold text-xl mb-5 text-center">Login</h1>
           <div className="my-2">
-            <label>Email</label>
+            <label className="text-sm sm:text-base">Email</label>
             <Input
+              className="text-sm sm:text-base mt-1"
               type="email"
               placeholder="Enter your email"
               value={input.email}
@@ -84,8 +85,9 @@ const Login = () => {
             />
           </div>
           <div className="my-2">
-            <label>Password</label>
+            <label className="text-sm sm:text-base">Password</label>
             <Input
+              className="text-sm sm:text-base mt-1"
               type="text"
               placeholder="Enter your password"
               value={input.password}
@@ -93,8 +95,8 @@ const Login = () => {
               onChange={changeEventHandler}
             />
           </div>
-          <div className="flex items-center justify-between">
-            <RadioGroup className="flex items-center gap-4 my-5">
+          <div className="flex items-center justify-between mx-auto">
+            <RadioGroup className="flex sm:flex-row items-start sm:items-center gap-2 sm:gap-4 my-5">
               <div className="flex items-center space-x-2">
                 <Input
                   type="radio"
@@ -125,21 +127,17 @@ const Login = () => {
               Please wait
             </Button>
           ) : (
-            <Button
-              type="submit"
-              className="w-full my-4 cursor-pointer
-          "
-            >
+            <Button type="submit" className="w-1/2 mt-0 cursor-pointer mx-auto">
               Login
             </Button>
           )}
-          <span className="text-sm">
-            Dont have an account?{" "}
-            <Link to="/signup" className="text-blue-600">
-              Signup
-            </Link>
-          </span>
         </form>
+        <span className="text-sm text-center">
+          Dont have an account?{" "}
+          <Link to="/signup" className="text-blue-600">
+            Signup
+          </Link>
+        </span>
       </div>
     </div>
   );

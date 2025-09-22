@@ -8,10 +8,13 @@ const LatestJobs: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto my-20">
-      <h1 className="text-4xl font-bold">
+      <h1 className="max-w-3xl leading-tight text-xl sm:text-5xl font-bold mb-5 ml-4">
         <span className="text-[#6a38c2]">Latest & Top</span> Job Openings
       </h1>
-      <div className="grid grid-cols-3 gap-4 my-5">
+      <div
+        className="sm:grid sm:grid-cols-3 gap-4 my-5 flex flex-col items-center sm:items-baseline
+      "
+      >
         {allJobs.length <= 0 ? (
           <span>No jobs available</span>
         ) : (

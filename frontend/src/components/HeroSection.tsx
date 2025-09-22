@@ -18,25 +18,26 @@ const HeroSection = () => {
   return (
     <div className="text-center">
       <div className="flex flex-col gap-5 my-10">
-        <span className="mx-auto px-2 py-1 rounded-full bg-gray-100 text-[#f83002] font-small ">
+        <span className="mx-auto px-2 py-1 rounded-full bg-gray-100 text-[#f83002] text-xs sm:text-sm">
           No.1 Job Hunting Website
         </span>
-        <h1 className="w-3xl leading-14 mx-auto text-5xl font-bold mb-5">
+        <h1 className="max-w-3xl leading-tight mx-auto text-2xl sm:text-5xl font-bold mb-5">
           Search, Apply, & Find your{" "}
           <span className="text-[#6A38C2]">Dream Job</span>
         </h1>
-        <div className="flex w-[40%] shadow-lg border border-gray-200 pl-3 rounded-full items-center gap-4 mx-auto">
+
+        <div className="flex w-[90%] sm:w-[40%] shadow-lg border border-gray-200 pl-1 sm:pl-3 rounded-full items-center gap-1 sm:gap-4 mx-auto">
           <input
             onChange={(e) => setQuery(e.target.value)}
             type="text"
             placeholder="Find your dream job"
-            className="outline-none border-none w-full p-3"
+            className="outline-none border-none w-full p-1.5 sm:p-3 text-xs sm:text-base"
           />
           <Button
             onClick={searchJobHandler}
-            className="rounded-r-full bg-[#6a38c2] cursor-pointer w-12 h-12"
+            className="rounded-r-full bg-[#6a38c2] cursor-pointer w-8 h-8 sm:w-12 sm:h-12"
           >
-            <Search />
+            <Search className="w-3 h-3 sm:w-5 sm:h-5" />
           </Button>
         </div>
       </div>

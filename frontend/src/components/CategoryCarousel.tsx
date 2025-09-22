@@ -27,23 +27,26 @@ const CategoryCarousel = () => {
     navigate("/browse");
   };
   return (
-    <div>
-      <Carousel className="w-full max-w-xl mx-auto my-20">
-        <CarouselContent>
+    <div className="px-4 sm:px-0">
+      <Carousel className="w-full max-w-full sm:max-w-xl mx-auto my-20">
+        <CarouselContent className="-ml-1 sm:-ml-4">
           {category.map((cat, index) => (
-            <CarouselItem className="md:basis-1/2 lg-basis-1/3" key={index}>
+            <CarouselItem
+              className="pl-1 sm:pl-4 basis-full sm:basis-auto md:basis-1/2 lg:basis-1/3 flex justify-center"
+              key={index}
+            >
               <Button
                 onClick={() => searchJobHandler(cat)}
                 variant="outline"
-                className="rounded-full cursor-pointer"
+                className="rounded-full cursor-pointer text-xs sm:text-sm"
               >
                 {cat}
               </Button>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="cursor-pointer" />
-        <CarouselNext className="cursor-pointer" />
+        <CarouselPrevious className="cursor-pointer -left-2 sm:-left-12 h-8 w-8 sm:h-10 sm:w-10" />
+        <CarouselNext className="cursor-pointer -right-2 sm:-right-12 h-8 w-8 sm:h-10 sm:w-10" />
       </Carousel>
     </div>
   );

@@ -85,16 +85,17 @@ const Signup: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center max-w-4xl mx-auto">
+      <div className="flex flex-col items-center justify-center max-w-3xl mx-auto px-4 mb-10">
         <form
           onSubmit={submitHandler}
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
+          className="flex flex-col w-full sm:w-3/4 md:w-1/2 border border-gray-200 rounded-md p-4 sm:p-6 my-10 mb-3"
         >
-          <h1 className="font-bold text-xl mb-5">Sign Up</h1>
+          <h1 className="font-bold text-xl mb-5 text-center">Sign Up</h1>
 
           <div className="my-2">
-            <label>Full name</label>
+            <label className="text-sm sm:text-base">Full name</label>
             <Input
+              className="text-sm sm:text-base mt-1"
               type="text"
               placeholder="Enter your full name"
               value={input.fullname}
@@ -104,8 +105,9 @@ const Signup: React.FC = () => {
           </div>
 
           <div className="my-2">
-            <label>Email</label>
+            <label className="text-sm sm:text-base">Email</label>
             <Input
+              className="text-sm sm:text-base mt-1"
               type="email"
               placeholder="Enter your email"
               value={input.email}
@@ -115,8 +117,9 @@ const Signup: React.FC = () => {
           </div>
 
           <div className="my-2">
-            <label>Phone number</label>
+            <label className="text-sm sm:text-base">Phone number</label>
             <Input
+              className="text-sm sm:text-base mt-1"
               type="tel"
               placeholder="Enter your phone number"
               value={input.phoneNumber}
@@ -126,8 +129,9 @@ const Signup: React.FC = () => {
           </div>
 
           <div className="my-2">
-            <label>Password</label>
+            <label className="text-sm sm:text-base">Password</label>
             <Input
+              className="text-sm sm:text-base mt-1"
               type="password"
               placeholder="Enter your password"
               value={input.password}
@@ -136,8 +140,21 @@ const Signup: React.FC = () => {
             />
           </div>
 
-          <div className="flex items-center justify-between">
-            <RadioGroup className="flex items-center gap-4 my-5">
+          <div className="flex flex-col sm:flex-col sm:items-center sm:justify-center gap-4">
+            <div className="w-full flex flex-col items-start gap-2 mt-2">
+              <Label className="text-sm sm:text-base font-normal">
+                Profile
+              </Label>
+              <Input
+                type="file"
+                accept="image/*"
+                className="cursor-pointer"
+                name="file"
+                onChange={changeFileHandler}
+              />
+            </div>
+
+            <RadioGroup className="flex sm:flex-row items-start sm:items-center gap-2 sm:gap-4 my-5 mx-auto">
               <div className="flex items-center space-x-2">
                 <Input
                   id="r1"
@@ -164,17 +181,6 @@ const Signup: React.FC = () => {
                 <Label htmlFor="r2">Recruiter</Label>
               </div>
             </RadioGroup>
-
-            <div className="flex items-center gap-2">
-              <Label>Profile</Label>
-              <Input
-                type="file"
-                accept="image/*"
-                className="cursor-pointer"
-                name="file"
-                onChange={changeFileHandler}
-              />
-            </div>
           </div>
           {loading ? (
             <Button className="w-full my-4">
@@ -182,18 +188,17 @@ const Signup: React.FC = () => {
               Please wait
             </Button>
           ) : (
-            <Button type="submit" className="w-full my-4 cursor-pointer">
+            <Button type="submit" className="w-1/2 cursor-pointer mx-auto">
               Signup
             </Button>
           )}
-
-          <span className="text-sm">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-600">
-              Login
-            </Link>
-          </span>
         </form>
+        <span className="text-sm">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600">
+            Login
+          </Link>
+        </span>
       </div>
     </div>
   );
