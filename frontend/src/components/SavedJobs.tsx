@@ -36,30 +36,40 @@ const SavedJobs = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl h-[100vh] mx-auto mt-10">
-        <h1 className="text-2xl font-bold">Saved Jobs ({savedJobs?.length})</h1>
-        <div className="border border-gray-200 mt-10 rounded-2xl">
+      <div className="w-[90%] sm:max-w-7xl h-[100vh] mx-auto mt-10">
+        <h1 className="text-lg sm:text-2xl font-bold">
+          Saved Jobs ({savedJobs?.length})
+        </h1>
+        <div className="border border-gray-200 mt-8 sm:mt-10 rounded-2xl">
           <Table>
             <TableHeader>
               <TableRow className="h-12">
-                <TableCell className="text-center">Company</TableCell>
-                <TableCell className="text-center">Role</TableCell>
-                <TableCell className="text-center">Date</TableCell>
-                <TableCell className="text-center"></TableCell>
+                <TableCell className="text-center text-[0.8rem] sm:text-base font-medium sm:font-bold">
+                  Company
+                </TableCell>
+                <TableCell className="text-center text-[0.8rem] sm:text-base font-medium sm:font-bold">
+                  Role
+                </TableCell>
+                <TableCell className="text-center text-[0.8rem] sm:text-base font-medium sm:font-bold">
+                  Date
+                </TableCell>
+                <TableCell className="text-center text-[0.8rem] sm:text-base font-medium sm:font-bold"></TableCell>
               </TableRow>
             </TableHeader>
             <TableBody>
               {savedJobs.length > 0 ? (
                 savedJobs?.map((job) => (
                   <TableRow key={job?._id}>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center text-[0.8rem] sm:text-base">
                       {job?.company?.name}
                     </TableCell>
-                    <TableCell className="text-center">{job?.title}</TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center text-[0.8rem] sm:text-base">
+                      {job?.title}
+                    </TableCell>
+                    <TableCell className="text-center text-[0.8rem] sm:text-base">
                       {job?.createdAt?.split("T")[0]}
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center text-[0.8rem] sm:text-base">
                       <button
                         onClick={() => unsaveJobHandler(job._id)}
                         aria-label="Close"

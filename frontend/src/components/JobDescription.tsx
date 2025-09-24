@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import Navbar from "./shared/Navbar";
+import Footer from "./shared/Footer";
 
 const JobDescription = () => {
   const params = useParams();
@@ -80,25 +81,27 @@ const JobDescription = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto my-10 border border-gray-200 rounded-2xl p-8">
-        <div className="flex items-center justify-between">
+      <div className="w-[90%] sm:p-8 sm:max-w-7xl mx-auto border border-gray-200 rounded-2xl p-4 my-20">
+        <div className="flex flex-col sm:flex-row items-start justify-left sm:items-center sm:justify-between">
           <div>
-            <h1 className="font-bold text-xl">{singleJob?.title}</h1>
-            <div className="flex items-center gap-2 mt-4">
+            <h1 className="font-medium sm:font-bold text-md sm:text-xl">
+              {singleJob?.title}
+            </h1>
+            <div className="flex flex-wrap items-center mt-2 sm:mt-4">
               <Badge
-                className={"text-blue-700 font-bold mr-2"}
+                className={"text-blue-700 font-medium sm:font-bold mr-2 mt-2"}
                 variant="secondary"
               >
                 {singleJob?.position} positions
               </Badge>
               <Badge
-                className={"text-red-700 font-bold mr-2"}
+                className={"text-red-700 font-medium sm:font-bold mr-2 mt-2"}
                 variant="secondary"
               >
                 {singleJob?.jobType}
               </Badge>
               <Badge
-                className={"text-pink-900 font-bold mr-2"}
+                className={"text-pink-900 font-medium sm:font-bold mr-2 mt-2"}
                 variant="secondary"
               >
                 {singleJob?.salary} LPA
@@ -116,59 +119,75 @@ const JobDescription = () => {
               isApplied
                 ? "bg-gray-600 cursor-not-allowed"
                 : "bg-[#7209b7] hover:bg-[#5f32ad]"
-            } cursor-pointer`}
+            } cursor-pointer hidden sm:block`}
           >
             {isApplied ? "Already Applied" : "Apply Now"}
           </Button>
         </div>
-        <h1 className="border-b-2 border-b-gray-300 font-medium py-4">
+        <h1 className="border-b-2 border-b-gray-300 text-sm sm:text-base sm:font-medium py-4">
           {singleJob?.description}
         </h1>
         <div className="my-4">
-          <h1 className="font-bold my-1">
+          <h1 className="font-medium text-sm sm:text-base sm:font-bold my-1">
             Role:{" "}
             <span className="pl-4 font-normal text-gray-800">
               {singleJob?.title}
             </span>
           </h1>
-          <h1 className="font-bold my-1">
+          <h1 className="text-sm sm:text-base font-medium sm:font-bold my-1">
             Location:{" "}
             <span className="pl-4 font-normal text-gray-800">
               {singleJob?.location}
             </span>
           </h1>
-          <h1 className="font-bold my-1">
+          <h1 className="text-sm sm:text-base font-medium sm:font-bold my-1">
             Description:{" "}
             <span className="pl-4 font-normal text-gray-800">
               {singleJob?.description}
             </span>
           </h1>
-          <h1 className="font-bold my-1">
+          <h1 className="text-sm sm:text-base font-medium sm:font-bold my-1">
             Experience:{" "}
             <span className="pl-4 font-normal text-gray-800">
               {singleJob?.experienceLevel} yrs
             </span>
           </h1>
-          <h1 className="font-bold my-1">
+          <h1 className="text-sm sm:text-base font-medium sm:font-bold my-1">
             Salary:{" "}
             <span className="pl-4 font-normal text-gray-800">
               {singleJob?.salary} LPA
             </span>
           </h1>
-          <h1 className="font-bold my-1">
+          <h1 className="text-sm sm:text-base font-medium sm:font-bold my-1">
             Total Applicants:{" "}
             <span className="pl-4 font-normal text-gray-800">
               {singleJob?.applications.length}
             </span>
           </h1>
-          <h1 className="font-bold my-1">
+          <h1 className="text-sm sm:text-base font-medium sm:font-bold my-1">
             Posted Date:{" "}
             <span className="pl-4 font-normal text-gray-800">
               {singleJob?.createdAt.split("T")[0]}
             </span>
           </h1>
+          <Button
+            onClick={
+              (isApplied ? null : applyJobHandler) as
+                | React.MouseEventHandler<HTMLButtonElement>
+                | undefined
+            }
+            disabled={isApplied}
+            className={`rounded-lg ${
+              isApplied
+                ? "bg-gray-600 cursor-not-allowed"
+                : "bg-[#7209b7] hover:bg-[#5f32ad]"
+            } cursor-pointer block sm:hidden mx-auto mt-6`}
+          >
+            {isApplied ? "Already Applied" : "Apply Now"}
+          </Button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
