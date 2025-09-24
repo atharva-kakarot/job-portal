@@ -17,7 +17,6 @@ const Profile = () => {
   useGetAllAppliedJobs();
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store: RootState) => store.auth);
-  console.log(user);
   const skills = user?.profile?.skills || [];
   const resumeName = user?.profile?.resumeOriginalName || null;
   const resume = user?.profile?.resume

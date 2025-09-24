@@ -85,12 +85,12 @@ const Navbar = () => {
           {!user ? (
             <div className="flex sm:hidden gap-1">
               <Link to="/login" onClick={closeSidebar}>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full text-xs">
                   Login
                 </Button>
               </Link>
               <Link to="/signup" onClick={closeSidebar}>
-                <Button className="w-full bg-[#6a38c2] hover:bg-[#5b30a6]">
+                <Button className="w-full bg-[#6a38c2] hover:bg-[#5b30a6] text-xs">
                   Signup
                 </Button>
               </Link>

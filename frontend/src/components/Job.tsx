@@ -53,34 +53,47 @@ const JobCard = ({ job }: { job: Job }) => {
   };
 
   return (
-    <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100">
+    <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100 w-[90%] sm:w-full mx-auto">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">
+        <p className="text-gray-500 text-xs sm:text-sm">
           <TimeAgo date={new Date(job?.createdAt)} />
         </p>
       </div>
       <div className="flex items-center gap-2 my-2">
-        <Button className="p-6" variant="outline" size="icon">
+        <Button className="p-5 sm:p-6" variant="outline" size="icon">
           <Avatar>
             <AvatarImage src={job?.company?.logo} />
           </Avatar>
         </Button>
         <div>
-          <h1 className="font-medium text-lg">{job?.company?.name}</h1>
-          <p className="text-sm text-gray-500">{job?.company?.location}</p>
+          <h1 className="font-medium sm:text-lg">{job?.company?.name}</h1>
+          <p className="text-xs sm:text-sm text-gray-500">
+            {job?.company?.location}
+          </p>
         </div>
       </div>
       <div>
-        <h1 className="font-bold text-lg my-2">{job?.title}</h1>
+        <h1 className="font-medium sm:font-bold text-base sm:text-lg my-2 mt-4">
+          {job?.title}
+        </h1>
       </div>
-      <div className="flex items-center gap-2 mt-4 flex-wrap">
-        <Badge className={"text-blue-700 font-bold mr-2"} variant="secondary">
+      <div className="flex items-center gap-2 mt-2 sm:mt-4 flex-wrap">
+        <Badge
+          className={"text-blue-700 font-medium sm:font-bold mr-2"}
+          variant="secondary"
+        >
           {job?.position} positions
         </Badge>
-        <Badge className={"text-red-700 font-bold mr-2"} variant="secondary">
+        <Badge
+          className={"text-red-700 font-medium sm:font-bold mr-2"}
+          variant="secondary"
+        >
           {job?.jobType}
         </Badge>
-        <Badge className={"text-pink-900 font-bold mr-2"} variant="secondary">
+        <Badge
+          className={"text-pink-900 font-medium sm:font-bold mr-2"}
+          variant="secondary"
+        >
           {job?.salary} LPA
         </Badge>
       </div>
@@ -88,19 +101,21 @@ const JobCard = ({ job }: { job: Job }) => {
         <Button
           variant="outline"
           onClick={() => navigate(`/description/${job?._id}`)}
-          className="cursor-pointer"
+          className="cursor-pointer text-xs sm:text-sm"
         >
           Details
         </Button>
         {!isSaved ? (
           <Button
-            className="bg-[#7209b7] cursor-pointer"
+            className="bg-[#7209b7] cursor-pointer text-xs sm:text-sm"
             onClick={saveJobHandler}
           >
             Save For Later
           </Button>
         ) : (
-          <Button className="bg-gray-600 cursor-not-allowed">Saved</Button>
+          <Button className="bg-gray-600 cursor-not-allowed text-xs sm:text-sm">
+            Saved
+          </Button>
         )}
       </div>
     </div>

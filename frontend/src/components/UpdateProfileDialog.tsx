@@ -99,81 +99,101 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
     <div>
       <Dialog open={open}>
         <DialogContent
-          className="sm:max-w-[425px]"
+          className="sm:max-w-[425px] overflow-y-auto h-[75%] sm:h-fit"
           onInteractOutside={() => setOpen(false)}
         >
           <DialogHeader>
-            <DialogTitle>Update Profile</DialogTitle>
+            <DialogTitle className="text-md sm:text-lg">
+              Update Profile
+            </DialogTitle>
           </DialogHeader>
           <form onSubmit={submitHandler}>
             <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
+              <div className="grid sm:grid-cols-4 items-center gap-1 sm:gap-4">
+                <Label
+                  htmlFor="name"
+                  className="sm:text-right text-sm sm:text-base"
+                >
                   Name
                 </Label>
                 <Input
                   id="name"
                   type="text"
                   name="fullname"
-                  className="col-span-3"
+                  className="col-span-3 text-sm sm:text-base"
                   value={input.fullname}
                   onChange={changeEventHandler}
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="email" className="text-right">
+              <div className="grid sm:grid-cols-4 items-center gap-1 sm:gap-4">
+                <Label
+                  htmlFor="email"
+                  className="sm:text-right text-sm sm:text-base"
+                >
                   Email
                 </Label>
                 <Input
                   id="email"
                   type="email"
                   name="email"
-                  className="col-span-3"
+                  className="col-span-3 text-sm sm:text-base"
                   value={input.email}
                   onChange={changeEventHandler}
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="number" className="text-right">
+              <div className="grid sm:grid-cols-4 items-center gap-1 sm:gap-4">
+                <Label
+                  htmlFor="number"
+                  className="sm:text-right text-sm sm:text-base"
+                >
                   Number
                 </Label>
                 <Input
                   id="number"
                   name="phoneNumber"
                   type="number"
-                  className="col-span-3"
+                  className="col-span-3 text-sm sm:text-base"
                   value={input.phoneNumber}
                   onChange={changeEventHandler}
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="bio" className="text-right">
+              <div className="grid sm:grid-cols-4 items-center gap-1 sm:gap-4">
+                <Label
+                  htmlFor="bio"
+                  className="sm:text-right text-sm sm:text-base"
+                >
                   Bio
                 </Label>
                 <Input
                   id="bio"
                   name="bio"
                   type="text"
-                  className="col-span-3"
+                  className="col-span-3 text-sm sm:text-base"
                   value={input.bio}
                   onChange={changeEventHandler}
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="skills" className="text-right">
+              <div className="grid sm:grid-cols-4 items-center gap-1 sm:gap-4">
+                <Label
+                  htmlFor="skills"
+                  className="sm:text-right text-sm sm:text-base"
+                >
                   Skills
                 </Label>
                 <Input
                   id="skills"
                   type="text"
                   name="skills"
-                  className="col-span-3"
+                  className="col-span-3 text-sm sm:text-base"
                   value={input.skills}
                   onChange={changeEventHandler}
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="file" className="text-right">
+              <div className="grid sm:grid-cols-4 items-center gap-1 sm:gap-4">
+                <Label
+                  htmlFor="file"
+                  className="sm:text-right text-sm sm:text-base"
+                >
                   Resume
                 </Label>
                 <Input
@@ -181,18 +201,21 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
                   name="file"
                   type="file"
                   accept="application/pdf"
-                  className="col-span-3"
+                  className="col-span-3 text-sm sm:text-base"
                   onChange={fileChangeHandler}
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="file" className="text-right">
+              <div className="grid sm:grid-cols-4 items-center gap-1 sm:gap-4">
+                <Label
+                  htmlFor="file"
+                  className="sm:text-right text-sm sm:text-base"
+                >
                   Profile
                 </Label>
                 <Input
                   type="file"
                   accept="image/*"
-                  className="col-span-3"
+                  className="col-span-3 text-sm sm:text-base"
                   name="file"
                   onChange={changeProfileHandler}
                 />
@@ -200,12 +223,15 @@ const UpdateProfileDialog: React.FC<Props> = ({ open, setOpen }) => {
             </div>
             <DialogFooter>
               {loading ? (
-                <Button className="w-full my-4">
+                <Button className="w-full my-4 text-sm sm:text-base">
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
                 </Button>
               ) : (
-                <Button type="submit" className="w-full my-4">
+                <Button
+                  type="submit"
+                  className="w-full my-4 text-sm sm:text-base"
+                >
                   Update
                 </Button>
               )}

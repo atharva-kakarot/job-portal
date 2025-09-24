@@ -8,7 +8,7 @@ const LatestJobs: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto my-20">
-      <h1 className="max-w-3xl leading-tight text-xl sm:text-5xl font-bold mb-5 ml-4">
+      <h1 className="max-w-3xl leading-tight text-xl sm:text-4xl font-bold mb-5 ml-4 sm:ml-0">
         <span className="text-[#6a38c2]">Latest & Top</span> Job Openings
       </h1>
       <div
