@@ -46,28 +46,40 @@ const ApplicantsTable = () => {
         <Table>
           <TableHeader>
             <TableRow className="h-12">
-              <TableHead className="text-center">Full Name</TableHead>
-              <TableHead className="text-center">Email</TableHead>
-              <TableHead className="text-center">Contact</TableHead>
-              <TableHead className="text-center">Resume</TableHead>
-              <TableHead className="text-center">Date</TableHead>
-              <TableHead className="text-center">Action</TableHead>
+              <TableHead className="text-center text-[0.8rem] sm:text-base">
+                Full Name
+              </TableHead>
+              <TableHead className="text-center text-[0.8rem] sm:text-base">
+                Email
+              </TableHead>
+              <TableHead className="text-center text-[0.8rem] sm:text-base">
+                Contact
+              </TableHead>
+              <TableHead className="text-center text-[0.8rem] sm:text-base">
+                Resume
+              </TableHead>
+              <TableHead className="text-center text-[0.8rem] sm:text-base">
+                Date
+              </TableHead>
+              <TableHead className="text-center text-[0.8rem] sm:text-base">
+                Action
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {application?.map((app) => {
               return (
                 <TableRow key={app._id}>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     {app.applicant?.fullname}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     {app.applicant?.email}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     {app.applicant?.phoneNumber}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     {app.applicant?.profile?.resume ? (
                       <Link
                         to={app.applicant?.profile?.resume}
@@ -80,7 +92,7 @@ const ApplicantsTable = () => {
                       <span>N/A</span>
                     )}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     {app?.applicant?.createdAt?.split("T")[0]}
                   </TableCell>
                   <TableCell className="text-center">
@@ -88,13 +100,13 @@ const ApplicantsTable = () => {
                       <PopoverTrigger className="cursor-pointer">
                         <MoreHorizontal />
                       </PopoverTrigger>
-                      <PopoverContent className="w-32">
+                      <PopoverContent className="w-25 sm:w-32 mr-1 p-1">
                         {shortListingStatus.map((status, index) => (
                           <div
                             onClick={() =>
                               statusHandler(status.toLowerCase(), app?._id)
                             }
-                            className="flex w-fit items-center my-2 cursor-pointer hover:bg-gray-100 p-2 rounded"
+                            className="text-sm sm:text-base flex w-full items-center my-2 cursor-pointer hover:bg-gray-100 p-2 rounded"
                             key={index}
                           >
                             <span>{status}</span>

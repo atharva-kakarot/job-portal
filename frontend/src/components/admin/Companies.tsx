@@ -23,16 +23,16 @@ const Companies = () => {
   return (
     <div className="h-[100vh]">
       <Navbar />
-      <div className="max-w-6xl mx-auto my-10 h-[100%]">
+      <div className="w-[90%] sm:max-w-6xl mx-auto my-10 h-[100%]">
         <div className="flex flex-center justify-between my-5">
           <Input
-            className="w-fit"
+            className="w-fit text-sm sm:text-base mr-5 sm:mr-0"
             placeholder="Filter by name"
             onChange={(e) => setInput(e.target.value)}
           />
           <Button
             onClick={() => navigate("/admin/companies/create")}
-            className="cursor-pointer"
+            className="cursor-pointer text-sm sm:text-base"
           >
             <FaPlus /> Company
           </Button>

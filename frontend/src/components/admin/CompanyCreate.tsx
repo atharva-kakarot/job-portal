@@ -35,16 +35,18 @@ const CompanyCreate = () => {
         navigate(`/admin/companies/${companyId}`);
       }
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message);
+      }
     }
   };
   return (
     <div className="h-[100vh]">
       <Navbar />
-      <div className="max-w-4xl mx-auto h-[100%] mt-20">
+      <div className="w-[90%] sm:max-w-4xl mx-auto h-[100%] mt-20">
         <div className="my-10">
-          <h1 className="font-bold text-2xl">Your Company Name</h1>
-          <p className="text-gray-500">
+          <h1 className="font-bold text-xl sm:text-2xl">Your Company Name</h1>
+          <p className="text-gray-500 mt-2 text-sm sm:text-base">
             What would you like to give your company name? You can change this
             later.
           </p>
@@ -52,7 +54,7 @@ const CompanyCreate = () => {
         <Label>Company Name</Label>
         <Input
           type="text"
-          className="my-2"
+          className="my-2 text-sm sm:text-base"
           placeholder="JobHunt, Microsoft etc."
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCompanyName(e.target.value)
@@ -60,12 +62,15 @@ const CompanyCreate = () => {
         />
         <div className="flex flex-center gap-2 my-10">
           <Button
+            className="text-xs sm:text-sm"
             variant="outline"
             onClick={() => navigate("/admin/companies")}
           >
             Cancel
           </Button>
-          <Button onClick={registerNewCompany}>Continue</Button>
+          <Button onClick={registerNewCompany} className="text-xs sm:text-sm">
+            Continue
+          </Button>
         </div>
       </div>
       <Footer />

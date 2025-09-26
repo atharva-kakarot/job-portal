@@ -23,16 +23,16 @@ const AdminJobs = () => {
   return (
     <div className="h-[100vh]">
       <Navbar />
-      <div className="max-w-6xl mx-auto my-10">
+      <div className="w-[90%] sm:max-w-6xl mx-auto my-10">
         <div className="flex flex-center justify-between my-5">
           <Input
-            className="w-fit"
+            className="w-fit sm:text-base text-sm"
             placeholder="Filter by job name"
             onChange={(e) => setInput(e.target.value)}
           />
           <Button
             onClick={() => navigate("/admin/jobs/create")}
-            className="cursor-pointer"
+            className="cursor-pointer text-xs sm:text-base"
           >
             <FaPlus /> New Job
           </Button>

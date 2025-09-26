@@ -35,42 +35,54 @@ const AdminJobsTable = () => {
       <Table>
         <TableHeader>
           <TableRow className="h-12">
-            <TableHead className="text-center">Company Name</TableHead>
-            <TableHead className="text-center">Role</TableHead>
-            <TableHead className="text-center">Date</TableHead>
-            <TableHead className="text-center">Action</TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Company Name
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Role
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Date
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Action
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {filterJobs?.length <= 0 ? (
             <TableRow>
-              <TableCell colSpan={4} className="text-center">
+              <TableCell
+                colSpan={4}
+                className="text-center text-[0.8rem] sm:text-base"
+              >
                 You have not registered a company yet!
               </TableCell>
             </TableRow>
           ) : (
-            // <span className="col-span-4 text-center">You have not registered a company yet!</span>
             filterJobs?.map((job) => {
               return (
-                <TableRow>
-                  <TableCell className="text-center">
+                <TableRow key={job._id}>
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     {job?.company?.name}
                   </TableCell>
-                  <TableCell className="text-center">{job?.title}</TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
+                    {job?.title}
+                  </TableCell>
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     {job.createdAt.split("T")[0]}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     <Popover>
                       <PopoverTrigger className="cursor-pointer">
                         <MoreHorizontal />
                       </PopoverTrigger>
-                      <PopoverContent className="w-32">
+                      <PopoverContent className="w-32 mr-1">
                         <div
                           onClick={() =>
                             navigate(`/admin/jobs/${job._id}/applicants`)
                           }
-                          className="flex items-center w-fit gap-2 cursor-pointer"
+                          className="flex items-center w-fit gap-2 cursor-pointer sm:text-base text-sm"
                         >
                           <Eye className="w-4" />
                           <span>Applicants</span>

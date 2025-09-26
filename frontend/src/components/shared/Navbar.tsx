@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { setUser } from "@/redux/authSlice";
 import { useState } from "react";
 import { IoBriefcaseOutline, IoHomeOutline } from "react-icons/io5";
+import { FaBriefcase, FaBuilding } from "react-icons/fa6";
 
 const Navbar = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -194,20 +195,36 @@ const Navbar = () => {
               <div className="space-y-2">
                 {user && user?.role === "recruiter" ? (
                   <>
+                    <div className="flex items-center gap-3 mb-3">
+                      <Avatar className="w-10 h-10">
+                        <AvatarImage src={profilePhoto} />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-medium text-sm">{user.fullname}</p>
+                      </div>
+                    </div>
                     <Link
                       to="/admin/companies"
-                      className="block py-2 text-gray-700 hover:text-[#F83002]"
+                      className="flex items-center py-2 text-gray-700 hover:text-[#F83002]"
                       onClick={closeSidebar}
                     >
-                      Companies
+                      <FaBuilding className="mr-2" /> Companies
                     </Link>
                     <Link
                       to="/admin/jobs"
-                      className="block py-2 text-gray-700 hover:text-[#F83002]"
+                      className="flex items-center py-2 text-gray-700 hover:text-[#F83002]"
                       onClick={closeSidebar}
                     >
-                      Jobs
+                      <FaBriefcase className="mr-2" /> Jobs
                     </Link>
+                    <button
+                      onClick={logOutHandler}
+                      className="flex items-center gap-2 text-sm py-2 text-gray-700 hover:text-[#F83002] w-full text-left"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Logout
+                    </button>
                   </>
                 ) : (
                   <>

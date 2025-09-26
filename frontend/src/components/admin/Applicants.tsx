@@ -35,8 +35,8 @@ const Applicants = () => {
   return (
     <div className="h-[100vh]">
       <Navbar />
-      <div className="max-w-7xl mx-auto h-[100%] mt-10">
-        <h1 className="font-bold text-xl my-5">
+      <div className="w-[90%] sm:max-w-7xl mx-auto h-[100%] mt-10">
+        <h1 className="font-bold text-xl my-8">
           Applicants ({application.length})
         </h1>
         <ApplicantsTable />

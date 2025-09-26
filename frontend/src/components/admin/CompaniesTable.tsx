@@ -38,10 +38,18 @@ const CompaniesTable = () => {
       <Table>
         <TableHeader>
           <TableRow className="h-12">
-            <TableHead className="text-center">Logo</TableHead>
-            <TableHead className="text-center">Name</TableHead>
-            <TableHead className="text-center">Date</TableHead>
-            <TableHead className="text-center">Action</TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Logo
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Name
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Date
+            </TableHead>
+            <TableHead className="text-center text-[0.8rem] sm:text-base">
+              Action
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -50,30 +58,32 @@ const CompaniesTable = () => {
           ) : (
             filterCompany?.map((company) => {
               return (
-                <TableRow>
+                <TableRow key={company._id}>
                   <TableCell className="flex items-center justify-center">
                     <Avatar>
                       <AvatarImage src={company.logo} />
                     </Avatar>
                   </TableCell>
-                  <TableCell className="text-center">{company.name}</TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
+                    {company.name}
+                  </TableCell>
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     {company.createdAt.split("T")[0]}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center text-[0.8rem] sm:text-base">
                     <Popover>
                       <PopoverTrigger className="cursor-pointer">
                         <MoreHorizontal />
                       </PopoverTrigger>
-                      <PopoverContent className="w-32">
+                      <PopoverContent className="w-20 sm:w-25 mr-1">
                         <div
                           onClick={() =>
                             navigate(`/admin/companies/${company._id}`)
                           }
-                          className="flex items-center gap-2 w-fit cursor-pointer"
+                          className="flex items-center gap-2 w-fit cursor-pointer sm:text-base text-sm"
                         >
                           <Edit2 className="w-4" />
-                          <span>Edit</span>
+                          Edit
                         </div>
                       </PopoverContent>
                     </Popover>

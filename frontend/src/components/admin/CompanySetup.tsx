@@ -91,12 +91,12 @@ const CompanySetup = () => {
   return (
     <div className="h-[100vh]">
       <Navbar />
-      <div className="max-w-xl mx-auto my-10 h-[100%]">
+      <div className="w-[90%] sm:max-w-xl mx-auto my-10 h-[100%]">
         <form
           onSubmit={submitHandler}
           className="border border-gray-200 p-8 rounded-2xl"
         >
-          <div className="flex items-center gap-5 mb-5 p-5 pl-0">
+          <div className="flex items-center gap-5 mb-5 p-5 pt-0 pl-0">
             <Button
               onClick={() => navigate("/admin/companies")}
               type="button"
@@ -106,50 +106,61 @@ const CompanySetup = () => {
               <ArrowLeft />
               <span>Back</span>
             </Button>
-            <h1 className="font-bold text-xl">Company Setup</h1>
+            <h1 className="font-medium sm:font-bold text-sm sm:text-xl">
+              Company Setup
+            </h1>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4">
             <div>
-              <Label className="mt-2 mb-2">Company Name</Label>
+              <Label className="text-sm sm:text-sm mt-2 mb-2">
+                Company Name
+              </Label>
               <Input
                 type="text"
                 name="name"
                 value={input.name}
                 onChange={changeEventHandler}
+                className="sm:text-base text-sm"
               />
             </div>
             <div>
-              <Label className="mt-2 mb-2">Description</Label>
+              <Label className="text-sm sm:text-sm mt-2 mb-2">
+                Description
+              </Label>
               <Input
                 type="text"
                 name="description"
                 value={input.description}
                 onChange={changeEventHandler}
+                className="sm:text-base text-sm"
               />
             </div>
             <div>
-              <Label className="mt-2 mb-2">Website</Label>
+              <Label className="text-sm sm:text-sm mt-2 mb-2">Website</Label>
               <Input
                 type="text"
                 name="website"
                 value={input.website}
                 onChange={changeEventHandler}
+                className="sm:text-base text-sm"
               />
             </div>
             <div>
-              <Label className="mt-2 mb-2">Location</Label>
+              <Label className="text-sm sm:text-sm mt-2 mb-2">Location</Label>
               <Input
                 type="text"
                 name="location"
                 value={input.location}
                 onChange={changeEventHandler}
+                className="sm:text-base text-sm"
               />
             </div>
             <div>
-              <Label className="mt-2 mb-2">Logo</Label>
+              <Label className="text-sm sm:text-sm mt-2 mb-2">Logo</Label>
               <Input
                 type="file"
                 accept="image/*"
+                className="text-sm sm:text-sm"
                 onChange={changeFileHandler}
               />
             </div>
@@ -162,7 +173,7 @@ const CompanySetup = () => {
           ) : (
             <Button
               type="submit"
-              className="w-full my-4 cursor-pointer
+              className="w-fit sm:w-full mx-auto mt-8 cursor-pointer
           "
             >
               Update
