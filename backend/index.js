@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 });
 
 const corsOptions = {
-  origin: ["https://job-portal-gold-nine.vercel.app", "http://localhost:5173"],
+  origin: ["https://job-portal-gold-nine.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
